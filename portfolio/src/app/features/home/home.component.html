@@ -67,9 +67,8 @@
                     <div class="avatar-ring"></div>
                     <div class="avatar-glow"></div>
                     <div class="avatar-wrapper">
-                        <div class="avatar-placeholder">
-                            <span class="material-icons-outlined">person</span>
-                        </div>
+                        <img [src]="portfolioData.personalInfo().avatar" [alt]="portfolioData.personalInfo().name"
+                            class="avatar-image">
                     </div>
 
                     <!-- Floating Tech Icons -->

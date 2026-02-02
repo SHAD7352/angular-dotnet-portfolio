@@ -27,7 +27,7 @@ export class PortfolioDataService {
         email: 'mdshadalamcareer@gmail.com',
         phone: '+917091771277',
         location: 'Guwahati, Assam, India',
-        avatar: 'assets/images/avatar.png',
+        avatar: 'img/profile.png',
         resumeUrl: 'assets/resume.pdf',
         bio: `ASP.NET developer with about two years of experience delivering web applications using C#, ASP.NET MVC, and EF Core. I design and consume RESTful APIs, optimize SQL Server databases and queries, and implement maintainable backend features. I work in Agile teams, focusing on measurable improvements in performance and reliability while producing clean, testable code.`,
         socialLinks: [
