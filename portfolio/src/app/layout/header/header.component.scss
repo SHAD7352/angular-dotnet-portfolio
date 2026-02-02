@@ -168,8 +168,6 @@
     border: none;
     cursor: pointer;
     padding: 0;
-    position: relative;
-    z-index: 2000; // Very high to ensure clickability
 
     @media (min-width: 1024px) {
         display: none;
@@ -215,13 +213,12 @@
     right: -100%;
     width: 280px;
     height: 100vh;
-    background: var(--bg-primary); // Solid primary background for readability
+    background: var(--bg-surface);
     border-left: 1px solid var(--border-primary);
-    padding: var(--space-8) var(--space-3) var(--space-3); // Adjusted top padding
-    z-index: 1999; // Below toggle but above everything else
+    padding: var(--space-10) var(--space-3) var(--space-3);
+    z-index: var(--z-modal);
     transition: right var(--transition-base);
     overflow-y: auto;
-    box-shadow: var(--shadow-xl); // Add shadow for depth
 
     &.open {
         right: 0;
@@ -236,7 +233,6 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
-    margin-top: var(--space-6); // Push content down below close button area
 }
 
 .nav-mobile-link {
@@ -250,23 +246,17 @@
     text-decoration: none;
     border-radius: var(--radius-md);
     transition: all var(--transition-base);
-    // Remove initial opacity/transform from base class to prevent blur
-    // We will apply them only when menu needs animation
-
-    // Simpler animation to avoid blur issues
     opacity: 0;
+    transform: translateX(20px);
 
     .nav-mobile.open & {
-        animation: simpleFadeIn 0.3s ease-out forwards;
+        animation: slideIn 0.3s ease-out forwards;
     }
 
-    @keyframes simpleFadeIn {
-        from {
-            opacity: 0;
-        }
-
+    @keyframes slideIn {
         to {
             opacity: 1;
+            transform: translateX(0);
         }
     }
 
@@ -278,7 +268,6 @@
     &.active {
         background: rgba(56, 189, 248, 0.1);
         color: var(--accent-primary);
-        font-weight: 600; // Make active bold
 
         .light-theme & {
             background: rgba(37, 99, 235, 0.1);
