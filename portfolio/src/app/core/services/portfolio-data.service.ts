@@ -31,9 +31,9 @@ export class PortfolioDataService {
         resumeUrl: 'assets/resume.pdf',
         bio: `ASP.NET developer with about two years of experience delivering web applications using C#, ASP.NET MVC, and EF Core. I design and consume RESTful APIs, optimize SQL Server databases and queries, and implement maintainable backend features. I work in Agile teams, focusing on measurable improvements in performance and reliability while producing clean, testable code.`,
         socialLinks: [
-            { name: 'GitHub', url: 'https://github.com/mdshadalamcareer', icon: 'fab fa-github' },
-            { name: 'LinkedIn', url: 'https://linkedin.com/in/mdshadalamcareer', icon: 'fab fa-linkedin' },
-            { name: 'Twitter', url: 'https://twitter.com/mdshadalamcareer', icon: 'fab fa-twitter' }
+            { name: 'GitHub', url: 'https://github.com/SHAD7352', icon: 'fab fa-github' },
+            { name: 'LinkedIn', url: 'https://www.linkedin.com/in/md-shad-alam-7a535a241/', icon: 'fab fa-linkedin' },
+            { name: 'Twitter', url: 'https://twitter.com/', icon: 'fab fa-twitter' }
         ]
     });
 

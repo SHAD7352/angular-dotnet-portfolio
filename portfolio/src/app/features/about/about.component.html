@@ -18,9 +18,8 @@
                 <div class="profile-section" appScrollAnimate="animate-fade-in-left">
                     <div class="profile-card">
                         <div class="profile-image">
-                            <div class="image-placeholder">
-                                <span class="material-icons-outlined">person</span>
-                            </div>
+                            <img [src]="portfolioData.personalInfo().avatar" [alt]="portfolioData.personalInfo().name"
+                                class="avatar-image">
                             <div class="profile-glow"></div>
                         </div>
 
