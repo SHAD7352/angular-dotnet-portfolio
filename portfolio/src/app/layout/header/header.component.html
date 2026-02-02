@@ -1,0 +1,60 @@
+<header class="header" [class.scrolled]="isScrolled()">
+    <div class="header-container">
+        <!-- Logo -->
+        <a routerLink="/" class="logo" (click)="closeMenu()">
+            <span class="logo-icon">
+                <span class="material-icons-outlined">terminal</span>
+            </span>
+            <span class="logo-text">Portfolio</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="nav-desktop">
+            @for (item of portfolioData.navigationItems(); track item.route) {
+            <a [routerLink]="item.route" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: item.exact || false }" class="nav-link">
+                {{ item.label }}
+            </a>
+            }
+        </nav>
+
+        <!-- Actions -->
+        <div class="header-actions">
+            <!-- Theme Toggle -->
+            <button class="theme-toggle" (click)="toggleTheme()"
+                [attr.aria-label]="themeService.isDark() ? 'Switch to light mode' : 'Switch to dark mode'">
+                <span class="material-icons-outlined">
+                    {{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}
+                </span>
+            </button>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="menu-toggle" (click)="toggleMenu()" [class.active]="isMenuOpen()" aria-label="Toggle menu">
+                <span class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="nav-mobile" [class.open]="isMenuOpen()">
+        <nav class="nav-mobile-content">
+            @for (item of portfolioData.navigationItems(); track item.route; let i = $index) {
+            <a [routerLink]="item.route" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: item.exact || false }" class="nav-mobile-link"
+                [style.animation-delay]="i * 50 + 'ms'" (click)="closeMenu()">
+                <span class="material-icons-outlined">{{ item.icon }}</span>
+                <span>{{ item.label }}</span>
+            </a>
+            }
+        </nav>
+    </div>
+</header>
+
+<!-- Overlay for mobile menu -->
+@if (isMenuOpen()) {
+<div class="menu-overlay" (click)="closeMenu()"></div>
+}

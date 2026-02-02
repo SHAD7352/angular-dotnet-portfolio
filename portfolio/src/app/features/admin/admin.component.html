@@ -1,0 +1,182 @@
+<div class="admin-layout" [class.sidebar-collapsed]="isSidebarCollapsed()">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <span class="brand-icon">
+                    <span class="material-icons-outlined">terminal</span>
+                </span>
+                <span class="brand-text text-danger">Admin</span>
+            </div>
+
+            <button class="collapse-btn" (click)="toggleSidebar()">
+                <span class="material-icons-outlined">
+                    {{ isSidebarCollapsed() ? 'chevron_right' : 'chevron_left' }}
+                </span>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            @for (item of menuItems; track item.route) {
+            <a [routerLink]="item.route" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: item.route === '/admin' }" class="nav-item">
+                <span class="nav-icon">
+                    <span class="material-icons-outlined">{{ item.icon }}</span>
+                </span>
+                <span class="nav-label">{{ item.label }}</span>
+                @if (item.badge) {
+                <span class="nav-badge">{{ item.badge }}</span>
+                }
+            </a>
+            }
+        </nav>
+
+        <div class="sidebar-footer">
+            <a routerLink="/" class="back-link">
+                <span class="material-icons-outlined">arrow_back</span>
+                <span>Back to Site</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <div class="header-left">
+                <button class="mobile-menu-btn" (click)="toggleSidebar()">
+                    <span class="material-icons-outlined">menu</span>
+                </button>
+                <h1>Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <button class="theme-toggle" (click)="themeService.toggleTheme()">
+                    <span class="material-icons-outlined">
+                        {{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}
+                    </span>
+                </button>
+                <div class="notifications">
+                    <button class="notification-btn">
+                        <span class="material-icons-outlined">notifications</span>
+                        <span class="notification-badge">3</span>
+                    </button>
+                </div>
+                <div class="admin-user">
+                    <div class="user-avatar">
+                        <span class="material-icons-outlined">person</span>
+                    </div>
+                    <span class="user-name">{{ portfolioData.personalInfo().name }}</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="admin-content">
+            <!-- Stats Grid -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    @for (stat of stats; track stat.label) {
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <span class="material-icons-outlined">{{ stat.icon }}</span>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">{{ stat.value }}</div>
+                            <div class="stat-label">{{ stat.label }}</div>
+                        </div>
+                        <div class="stat-change positive">{{ stat.change }}</div>
+                    </div>
+                    }
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="actions-grid">
+                    <button class="action-card">
+                        <span class="material-icons-outlined">add_circle</span>
+                        <span>New Project</span>
+                    </button>
+                    <button class="action-card">
+                        <span class="material-icons-outlined">edit_note</span>
+                        <span>Write Post</span>
+                    </button>
+                    <button class="action-card">
+                        <span class="material-icons-outlined">analytics</span>
+                        <span>Analytics</span>
+                    </button>
+                    <button class="action-card">
+                        <span class="material-icons-outlined">cloud_upload</span>
+                        <span>Upload File</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Recent Items -->
+            <div class="dashboard-grid">
+                <!-- Recent Projects -->
+                <section class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Recent Projects</h3>
+                        <a routerLink="/admin/projects" class="view-all">View All</a>
+                    </div>
+                    <div class="card-content">
+                        @for (project of portfolioData.projects().slice(0, 4); track project.id) {
+                        <div class="list-item">
+                            <div class="item-icon">
+                                <span class="material-icons-outlined">folder</span>
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">{{ project.title }}</div>
+                                <div class="item-meta">{{ project.category }}</div>
+                            </div>
+                            <button class="item-action">
+                                <span class="material-icons-outlined">more_vert</span>
+                            </button>
+                        </div>
+                        }
+                    </div>
+                </section>
+
+                <!-- Recent Messages -->
+                <section class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Recent Messages</h3>
+                        <a routerLink="/admin/messages" class="view-all">View All</a>
+                    </div>
+                    <div class="card-content">
+                        <div class="list-item">
+                            <div class="item-icon unread">
+                                <span class="material-icons-outlined">mail</span>
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">New project inquiry</div>
+                                <div class="item-meta">john@example.com • 2h ago</div>
+                            </div>
+                            <span class="unread-dot"></span>
+                        </div>
+                        <div class="list-item">
+                            <div class="item-icon">
+                                <span class="material-icons-outlined">mail</span>
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">Collaboration request</div>
+                                <div class="item-meta">jane@company.com • 1d ago</div>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                            <div class="item-icon">
+                                <span class="material-icons-outlined">mail</span>
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">Job opportunity</div>
+                                <div class="item-meta">hr@startup.io • 3d ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</div>

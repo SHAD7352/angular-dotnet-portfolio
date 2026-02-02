@@ -1,0 +1,175 @@
+<section class="contact-page">
+    <!-- Hero Section -->
+    <div class="contact-hero">
+        <div class="container">
+            <div class="hero-content animate-fade-in">
+                <h1>Get In Touch</h1>
+                <p class="subtitle">Have a question or want to work together? Drop me a message!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Content -->
+    <div class="contact-content">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Left Side - Contact Info -->
+                <div class="contact-info" appScrollAnimate="animate-fade-in-left">
+                    <h2>Let's Talk</h2>
+                    <p class="info-text">
+                        I'm always open to discussing new projects, creative ideas, or opportunities to be part of your
+                        vision.
+                    </p>
+
+                    <!-- Contact Items -->
+                    <div class="info-items">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <span class="material-icons-outlined">mail</span>
+                            </div>
+                            <div class="info-content">
+                                <h4>Email</h4>
+                                <a href="mailto:{{ portfolioData.personalInfo().email }}">
+                                    {{ portfolioData.personalInfo().email }}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <span class="material-icons-outlined">location_on</span>
+                            </div>
+                            <div class="info-content">
+                                <h4>Location</h4>
+                                <p>{{ portfolioData.personalInfo().location }}</p>
+                            </div>
+                        </div>
+
+                        @if (portfolioData.personalInfo().phone) {
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <span class="material-icons-outlined">phone</span>
+                            </div>
+                            <div class="info-content">
+                                <h4>Phone</h4>
+                                <a href="tel:{{ portfolioData.personalInfo().phone }}">
+                                    {{ portfolioData.personalInfo().phone }}
+                                </a>
+                            </div>
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="social-section">
+                        <h4>Connect with me</h4>
+                        <div class="social-links">
+                            @for (social of portfolioData.personalInfo().socialLinks; track social.name) {
+                            <a [href]="social.url" target="_blank" rel="noopener noreferrer" class="social-link"
+                                [attr.aria-label]="social.name">
+                                <span class="material-icons-outlined">
+                                    @switch (social.name) {
+                                    @case ('GitHub') { code }
+                                    @case ('LinkedIn') { work }
+                                    @case ('Twitter') { chat }
+                                    @default { link }
+                                    }
+                                </span>
+                                <span>{{ social.name }}</span>
+                            </a>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Availability -->
+                    <div class="availability-card">
+                        <div class="availability-dot"></div>
+                        <div class="availability-text">
+                            <strong>Currently available</strong>
+                            <span>for freelance work</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side - Contact Form -->
+                <div class="contact-form-wrapper" appScrollAnimate="animate-fade-in-right">
+                    <div class="form-card">
+                        <h3>Send a Message</h3>
+
+                        <!-- Success Message -->
+                        @if (isSubmitted()) {
+                        <div class="success-message animate-scale-in">
+                            <div class="success-icon">
+                                <span class="material-icons-outlined">check_circle</span>
+                            </div>
+                            <h4>Message Sent!</h4>
+                            <p>Thank you for reaching out. I'll get back to you within 24-48 hours.</p>
+                        </div>
+                        } @else {
+                        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                            <!-- Name Field -->
+                            <div class="form-group">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" id="name" formControlName="name" class="form-input"
+                                    [class.error]="getFieldError('name')" placeholder="John Doe">
+                                @if (getFieldError('name')) {
+                                <span class="form-error">{{ getFieldError('name') }}</span>
+                                }
+                            </div>
+
+                            <!-- Email Field -->
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" formControlName="email" class="form-input"
+                                    [class.error]="getFieldError('email')" placeholder="john@example.com">
+                                @if (getFieldError('email')) {
+                                <span class="form-error">{{ getFieldError('email') }}</span>
+                                }
+                            </div>
+
+                            <!-- Subject Field -->
+                            <div class="form-group">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" id="subject" formControlName="subject" class="form-input"
+                                    [class.error]="getFieldError('subject')" placeholder="What's this about?">
+                                @if (getFieldError('subject')) {
+                                <span class="form-error">{{ getFieldError('subject') }}</span>
+                                }
+                            </div>
+
+                            <!-- Message Field -->
+                            <div class="form-group">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea id="message" formControlName="message" class="form-input"
+                                    [class.error]="getFieldError('message')" placeholder="Tell me about your project..."
+                                    rows="5"></textarea>
+                                @if (getFieldError('message')) {
+                                <span class="form-error">{{ getFieldError('message') }}</span>
+                                }
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary btn-lg submit-btn" [disabled]="isSubmitting()">
+                                @if (isSubmitting()) {
+                                <span class="spinner"></span>
+                                <span>Sending...</span>
+                                } @else {
+                                <span class="material-icons-outlined">send</span>
+                                <span>Send Message</span>
+                                }
+                            </button>
+
+                            @if (submitError()) {
+                            <div class="error-message">
+                                <span class="material-icons-outlined">error</span>
+                                <span>{{ submitError() }}</span>
+                            </div>
+                            }
+                        </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

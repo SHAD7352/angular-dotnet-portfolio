@@ -1,0 +1,209 @@
+<section class="hero" #heroSection>
+    <!-- Background Elements -->
+    <div class="hero-bg">
+        <div class="gradient-orb gradient-orb-1"></div>
+        <div class="gradient-orb gradient-orb-2"></div>
+        <div class="grid-pattern"></div>
+    </div>
+
+    <div class="hero-container">
+        <div class="hero-content">
+            <!-- Left Side - Text Content -->
+            <div class="hero-text">
+                <div class="hero-badge animate-fade-in-down">
+                    <span class="badge-dot"></span>
+                    <span>Available for new opportunities</span>
+                </div>
+
+                <h1 class="hero-title animate-fade-in">
+                    Hi, I'm <span class="highlight">{{ portfolioData.personalInfo().name }}</span>
+                </h1>
+
+                <div class="hero-role animate-fade-in animate-delay-1">
+                    <span class="role-prefix">I'm a</span>
+                    <span class="role-typed">
+                        {{ typedText }}<span class="cursor">|</span>
+                    </span>
+                </div>
+
+                <p class="hero-description animate-fade-in animate-delay-2">
+                    {{ portfolioData.personalInfo().bio }}
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="hero-actions animate-fade-in animate-delay-3">
+                    <a routerLink="/projects" class="btn btn-primary btn-lg">
+                        <span class="material-icons-outlined">folder_open</span>
+                        <span>View Projects</span>
+                    </a>
+                    <a [href]="portfolioData.personalInfo().resumeUrl" target="_blank" class="btn btn-outline btn-lg">
+                        <span class="material-icons-outlined">download</span>
+                        <span>Download Resume</span>
+                    </a>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="hero-stats animate-fade-in animate-delay-4">
+                    <div class="stat-item">
+                        <span class="stat-value">5+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-value">50+</span>
+                        <span class="stat-label">Projects Completed</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-value">30+</span>
+                        <span class="stat-label">Happy Clients</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Avatar / Illustration -->
+            <div class="hero-visual animate-fade-in-right animate-delay-2">
+                <div class="avatar-container">
+                    <div class="avatar-ring"></div>
+                    <div class="avatar-glow"></div>
+                    <div class="avatar-wrapper">
+                        <div class="avatar-placeholder">
+                            <span class="material-icons-outlined">person</span>
+                        </div>
+                    </div>
+
+                    <!-- Floating Tech Icons -->
+                    <div class="floating-icons">
+                        <div class="floating-icon icon-1" data-tooltip="Angular">
+                            <span class="tech-icon">A</span>
+                        </div>
+                        <div class="floating-icon icon-2" data-tooltip="TypeScript">
+                            <span class="tech-icon">TS</span>
+                        </div>
+                        <div class="floating-icon icon-3" data-tooltip="Node.js">
+                            <span class="tech-icon">N</span>
+                        </div>
+                        <div class="floating-icon icon-4" data-tooltip="PostgreSQL">
+                            <span class="tech-icon">P</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator animate-fade-in animate-delay-5">
+            <button class="scroll-btn" (click)="scrollToProjects()">
+                <span class="scroll-text">Scroll Down</span>
+                <span class="scroll-icon">
+                    <span class="material-icons-outlined">expand_more</span>
+                </span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects Preview -->
+<section class="featured-section" id="featured-projects">
+    <div class="container">
+        <div class="section-header" appScrollAnimate="animate-fade-in-up">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">A selection of my recent work that I'm most proud of</p>
+        </div>
+
+        <div class="projects-grid">
+            @for (project of portfolioData.getFeaturedProjects(); track project.id; let i = $index) {
+            <article class="project-card" appScrollAnimate="animate-fade-in-up" [animationDelay]="i * 100">
+                <div class="project-image">
+                    <div class="project-placeholder">
+                        <span class="material-icons-outlined">image</span>
+                    </div>
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            @if (project.liveUrl) {
+                            <a [href]="project.liveUrl" target="_blank" class="project-link"
+                                aria-label="View live demo">
+                                <span class="material-icons-outlined">open_in_new</span>
+                            </a>
+                            }
+                            @if (project.githubUrl) {
+                            <a [href]="project.githubUrl" target="_blank" class="project-link"
+                                aria-label="View source code">
+                                <span class="material-icons-outlined">code</span>
+                            </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">{{ project.title }}</h3>
+                    <p class="project-description">{{ project.description }}</p>
+                    <div class="project-tech">
+                        @for (tech of project.techStack.slice(0, 4); track tech) {
+                        <span class="tech-badge">{{ tech }}</span>
+                        }
+                    </div>
+                </div>
+            </article>
+            }
+        </div>
+
+        <div class="view-all-wrapper" appScrollAnimate="animate-fade-in-up">
+            <a routerLink="/projects" class="btn btn-outline">
+                <span>View All Projects</span>
+                <span class="material-icons-outlined">arrow_forward</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Preview -->
+<section class="skills-preview">
+    <div class="container">
+        <div class="section-header" appScrollAnimate="animate-fade-in-up">
+            <h2 class="section-title">Tech Stack</h2>
+            <p class="section-subtitle">Technologies I work with on a daily basis</p>
+        </div>
+
+        <div class="skills-marquee" appScrollAnimate="animate-fade-in">
+            <div class="marquee-track">
+                @for (skill of portfolioData.skills().slice(0, 12); track skill.name) {
+                <div class="skill-chip">
+                    <span class="skill-icon material-icons-outlined">code</span>
+                    <span>{{ skill.name }}</span>
+                </div>
+                }
+                <!-- Duplicate for seamless loop -->
+                @for (skill of portfolioData.skills().slice(0, 12); track skill.name + '-dup') {
+                <div class="skill-chip">
+                    <span class="skill-icon material-icons-outlined">code</span>
+                    <span>{{ skill.name }}</span>
+                </div>
+                }
+            </div>
+        </div>
+
+        <div class="cta-section" appScrollAnimate="animate-fade-in-up">
+            <a routerLink="/skills" class="btn btn-primary">
+                <span>Explore My Skills</span>
+                <span class="material-icons-outlined">arrow_forward</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-banner">
+    <div class="container">
+        <div class="cta-content" appScrollAnimate="animate-scale-in">
+            <div class="cta-text">
+                <h2>Let's Work Together</h2>
+                <p>Have a project in mind? I'd love to hear about it and discuss how we can collaborate.</p>
+            </div>
+            <a routerLink="/contact" class="btn btn-secondary btn-lg">
+                <span class="material-icons-outlined">mail</span>
+                <span>Get In Touch</span>
+            </a>
+        </div>
+    </div>
+</section>

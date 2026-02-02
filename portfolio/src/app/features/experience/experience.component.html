@@ -1,0 +1,136 @@
+<section class="experience-page">
+    <!-- Hero Section -->
+    <div class="experience-hero">
+        <div class="container">
+            <div class="hero-content animate-fade-in">
+                <h1>Work Experience</h1>
+                <p class="subtitle">My professional journey and career milestones</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline Content -->
+    <div class="experience-content">
+        <div class="container">
+            <div class="timeline">
+                @for (exp of portfolioData.experiences(); track exp.id; let i = $index; let isLast = $last) {
+                <div class="timeline-item" [class.current]="exp.current" appScrollAnimate="animate-fade-in-up"
+                    [animationDelay]="i * 150">
+
+                    <!-- Timeline Line & Dot -->
+                    <div class="timeline-marker">
+                        <div class="timeline-dot" [class.current]="exp.current">
+                            @if (exp.current) {
+                            <span class="pulse-ring"></span>
+                            }
+                        </div>
+                        @if (!isLast) {
+                        <div class="timeline-line"></div>
+                        }
+                    </div>
+
+                    <!-- Experience Card -->
+                    <div class="timeline-card">
+                        <!-- Card Header -->
+                        <div class="card-header">
+                            <div class="company-logo">
+                                <span class="material-icons-outlined">business</span>
+                            </div>
+                            <div class="header-content">
+                                <div class="company-name">{{ exp.company }}</div>
+                                <div class="role-title">{{ exp.role }}</div>
+                            </div>
+                            <div class="employment-badges">
+                                @if (exp.current) {
+                                <span class="badge current-badge">
+                                    <span class="badge-dot"></span>
+                                    Current
+                                </span>
+                                }
+                                <span class="badge type-badge">{{ getTypeLabel(exp.type) }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Card Meta -->
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <span class="material-icons-outlined">calendar_today</span>
+                                <span>
+                                    {{ formatDate(exp.startDate) }} -
+                                    {{ exp.current ? 'Present' : formatDate(exp.endDate!) }}
+                                </span>
+                                <span class="duration">({{ getDuration(exp) }})</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="material-icons-outlined">location_on</span>
+                                <span>{{ exp.location }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <p class="card-description">{{ exp.description }}</p>
+
+                        <!-- Achievements -->
+                        @if (exp.achievements.length > 0) {
+                        <div class="card-achievements">
+                            <h4>Key Achievements</h4>
+                            <ul>
+                                @for (achievement of exp.achievements; track achievement) {
+                                <li>
+                                    <span class="achievement-icon">✓</span>
+                                    {{ achievement }}
+                                </li>
+                                }
+                            </ul>
+                        </div>
+                        }
+
+                        <!-- Technologies -->
+                        <div class="card-technologies">
+                            @for (tech of exp.technologies; track tech) {
+                            <span class="tech-badge">{{ tech }}</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="experience-stats">
+        <div class="container">
+            <div class="stats-grid" appScrollAnimate="animate-fade-in-up">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <span class="material-icons-outlined">work_history</span>
+                    </div>
+                    <div class="stat-value">5+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <span class="material-icons-outlined">business_center</span>
+                    </div>
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Companies</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <span class="material-icons-outlined">rocket_launch</span>
+                    </div>
+                    <div class="stat-value">50+</div>
+                    <div class="stat-label">Projects Delivered</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <span class="material-icons-outlined">groups</span>
+                    </div>
+                    <div class="stat-value">20+</div>
+                    <div class="stat-label">Team Collaborations</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

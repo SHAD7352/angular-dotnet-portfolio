@@ -1,0 +1,77 @@
+<footer class="footer">
+    <div class="footer-container">
+        <!-- Top Section -->
+        <div class="footer-top">
+            <!-- Brand -->
+            <div class="footer-brand">
+                <a routerLink="/" class="footer-logo">
+                    <span class="logo-icon">
+                        <span class="material-icons-outlined">terminal</span>
+                    </span>
+                    <span class="logo-text">Portfolio</span>
+                </a>
+                <p class="footer-tagline">{{ portfolioData.personalInfo().tagline }}</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-links">
+                <h4 class="footer-title">Quick Links</h4>
+                <nav class="footer-nav">
+                    @for (item of portfolioData.navigationItems(); track item.route) {
+                    <a [routerLink]="item.route" class="footer-link">{{ item.label }}</a>
+                    }
+                </nav>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="footer-contact">
+                <h4 class="footer-title">Get in Touch</h4>
+                <div class="contact-items">
+                    <a href="mailto:{{ portfolioData.personalInfo().email }}" class="contact-item">
+                        <span class="material-icons-outlined">mail</span>
+                        <span>{{ portfolioData.personalInfo().email }}</span>
+                    </a>
+                    <div class="contact-item">
+                        <span class="material-icons-outlined">location_on</span>
+                        <span>{{ portfolioData.personalInfo().location }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="footer-social">
+                <h4 class="footer-title">Connect</h4>
+                <div class="social-links">
+                    @for (social of portfolioData.personalInfo().socialLinks; track social.name) {
+                    <a [href]="social.url" target="_blank" rel="noopener noreferrer" class="social-link"
+                        [attr.aria-label]="social.name">
+                        <span class="material-icons-outlined">
+                            @switch (social.name) {
+                            @case ('GitHub') { code }
+                            @case ('LinkedIn') { work }
+                            @case ('Twitter') { chat }
+                            @default { link }
+                            }
+                        </span>
+                    </a>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="footer-divider"></div>
+
+        <!-- Bottom Section -->
+        <div class="footer-bottom">
+            <p class="copyright">
+                © {{ currentYear }} {{ portfolioData.personalInfo().name }}. All rights reserved.
+            </p>
+            <p class="made-with">
+                Made with
+                <span class="heart">❤</span>
+                using Angular
+            </p>
+        </div>
+    </div>
+</footer>

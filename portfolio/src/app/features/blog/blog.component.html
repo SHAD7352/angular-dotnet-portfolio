@@ -1,0 +1,109 @@
+<section class="blog-page">
+    <!-- Hero Section -->
+    <div class="blog-hero">
+        <div class="container">
+            <div class="hero-content animate-fade-in">
+                <h1>Blog & Articles</h1>
+                <p class="subtitle">Thoughts, insights, and tutorials on web development</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Content -->
+    <div class="blog-content">
+        <div class="container">
+            <!-- Featured Post -->
+            @if (getLatestPost(); as latestPost) {
+            <article class="featured-post" appScrollAnimate="animate-fade-in-up">
+                <div class="featured-image">
+                    <div class="image-placeholder">
+                        <span class="material-icons-outlined">article</span>
+                    </div>
+                    <div class="featured-badge">
+                        <span class="material-icons-outlined">auto_awesome</span>
+                        Latest
+                    </div>
+                </div>
+                <div class="featured-content">
+                    <div class="post-meta">
+                        <span class="post-date">
+                            <span class="material-icons-outlined">calendar_today</span>
+                            {{ formatDate(latestPost.publishedAt) }}
+                        </span>
+                        <span class="reading-time">
+                            <span class="material-icons-outlined">schedule</span>
+                            {{ latestPost.readingTime }} min read
+                        </span>
+                    </div>
+                    <h2 class="post-title">{{ latestPost.title }}</h2>
+                    <p class="post-excerpt">{{ latestPost.excerpt }}</p>
+                    <div class="post-tags">
+                        @for (tag of latestPost.tags.slice(0, 4); track tag) {
+                        <span class="tag">{{ tag }}</span>
+                        }
+                    </div>
+                    <a [routerLink]="['/blog', latestPost.slug]" class="btn btn-primary">
+                        <span>Read Article</span>
+                        <span class="material-icons-outlined">arrow_forward</span>
+                    </a>
+                </div>
+            </article>
+            }
+
+            <!-- Other Posts Grid -->
+            <div class="posts-section" appScrollAnimate="animate-fade-in-up">
+                <h3 class="section-label">More Articles</h3>
+                <div class="posts-grid">
+                    @for (post of getOtherPosts(); track post.id; let i = $index) {
+                    <article class="post-card" appScrollAnimate="animate-fade-in-up" [animationDelay]="i * 100">
+
+                        <div class="post-image">
+                            <div class="image-placeholder">
+                                <span class="material-icons-outlined">description</span>
+                            </div>
+                        </div>
+
+                        <div class="post-body">
+                            <div class="post-meta">
+                                <span class="post-date">{{ formatDate(post.publishedAt) }}</span>
+                                <span class="dot">•</span>
+                                <span class="reading-time">{{ post.readingTime }} min read</span>
+                            </div>
+                            <h3 class="post-title">{{ post.title }}</h3>
+                            <p class="post-excerpt">{{ post.excerpt }}</p>
+                            <div class="post-tags">
+                                @for (tag of post.tags.slice(0, 3); track tag) {
+                                <span class="tag">{{ tag }}</span>
+                                }
+                            </div>
+                            <a [routerLink]="['/blog', post.slug]" class="read-more">
+                                <span>Read more</span>
+                                <span class="material-icons-outlined">arrow_forward</span>
+                            </a>
+                        </div>
+                    </article>
+                    }
+                </div>
+            </div>
+
+            <!-- Newsletter CTA -->
+            <div class="newsletter-section" appScrollAnimate="animate-scale-in">
+                <div class="newsletter-card">
+                    <div class="newsletter-icon">
+                        <span class="material-icons-outlined">mark_email_read</span>
+                    </div>
+                    <h3>Subscribe to Newsletter</h3>
+                    <p>Get notified when I publish new articles. No spam, unsubscribe anytime.</p>
+                    <form class="newsletter-form" (submit)="$event.preventDefault()">
+                        <div class="input-wrapper">
+                            <input type="email" class="form-input" placeholder="Enter your email" required>
+                            <button type="submit" class="btn btn-primary">
+                                Subscribe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

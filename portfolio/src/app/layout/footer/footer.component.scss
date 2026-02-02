@@ -1,0 +1,222 @@
+.footer {
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-primary);
+    padding: var(--space-8) 0 var(--space-4);
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--space-3);
+
+    @media (min-width: 1024px) {
+        padding: 0 var(--space-6);
+    }
+}
+
+.footer-top {
+    display: grid;
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+        grid-template-columns: 2fr 1fr 1.5fr 1fr;
+        gap: var(--space-8);
+    }
+}
+
+// Brand Section
+.footer-brand {
+    max-width: 300px;
+}
+
+.footer-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    text-decoration: none;
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: var(--space-2);
+    transition: color var(--transition-fast);
+
+    &:hover {
+        color: var(--accent-primary);
+
+        .logo-icon {
+            background: var(--accent-primary);
+            color: #0F172A;
+        }
+    }
+}
+
+.logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+
+    .material-icons-outlined {
+        font-size: 18px;
+    }
+}
+
+.footer-tagline {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+// Footer Title
+.footer-title {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 var(--space-2);
+}
+
+// Quick Links
+.footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.footer-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    transition: color var(--transition-fast);
+    padding: 4px 0;
+
+    &:hover {
+        color: var(--accent-primary);
+    }
+}
+
+// Contact Info
+.contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    transition: color var(--transition-fast);
+
+    &:hover {
+        color: var(--accent-primary);
+    }
+
+    .material-icons-outlined {
+        font-size: 18px;
+        color: var(--accent-primary);
+    }
+}
+
+// Social Links
+.social-links {
+    display: flex;
+    gap: var(--space-1);
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-full);
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all var(--transition-base);
+
+    &:hover {
+        background: var(--accent-primary);
+        border-color: var(--accent-primary);
+        color: #0F172A;
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-glow);
+    }
+
+    .material-icons-outlined {
+        font-size: 18px;
+    }
+}
+
+// Divider
+.footer-divider {
+    height: 1px;
+    background: var(--border-primary);
+    margin-bottom: var(--space-4);
+}
+
+// Bottom Section
+.footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    text-align: center;
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.copyright {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.made-with {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .heart {
+        color: #EF4444;
+        animation: pulse 1.5s ease-in-out infinite;
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}

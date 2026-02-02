@@ -1,0 +1,223 @@
+<section class="about-page">
+    <!-- Hero Section -->
+    <div class="about-hero">
+        <div class="container">
+            <div class="hero-content animate-fade-in">
+                <h1>About Me</h1>
+                <p class="subtitle">Get to know the person behind the code</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="about-content">
+        <div class="container">
+            <!-- Two Column Layout -->
+            <div class="about-grid">
+                <!-- Left: Profile Image -->
+                <div class="profile-section" appScrollAnimate="animate-fade-in-left">
+                    <div class="profile-card">
+                        <div class="profile-image">
+                            <div class="image-placeholder">
+                                <span class="material-icons-outlined">person</span>
+                            </div>
+                            <div class="profile-glow"></div>
+                        </div>
+
+                        <!-- Quick Info -->
+                        <div class="quick-info">
+                            <div class="info-item">
+                                <span class="material-icons-outlined">location_on</span>
+                                <span>{{ portfolioData.personalInfo().location }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="material-icons-outlined">mail</span>
+                                <span>{{ portfolioData.personalInfo().email }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="social-links">
+                            @for (social of portfolioData.personalInfo().socialLinks; track social.name) {
+                            <a [href]="social.url" target="_blank" rel="noopener noreferrer" class="social-link"
+                                [attr.aria-label]="social.name">
+                                <span class="material-icons-outlined">
+                                    @switch (social.name) {
+                                    @case ('GitHub') { code }
+                                    @case ('LinkedIn') { work }
+                                    @case ('Twitter') { chat }
+                                    @default { link }
+                                    }
+                                </span>
+                            </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Bio & Details -->
+                <div class="bio-section" appScrollAnimate="animate-fade-in-right">
+                    <div class="bio-intro">
+                        <h2>Hello, I'm <span class="highlight">{{ portfolioData.personalInfo().name }}</span></h2>
+                        <h3 class="title">{{ portfolioData.personalInfo().title }}</h3>
+                    </div>
+
+                    <div class="bio-text">
+                        <p>{{ portfolioData.personalInfo().bio }}</p>
+                        <p>
+                            With about two years of experience in building web applications, I've worked with product
+                            teams
+                            to deliver enterprise solutions including HRMS, School ERP, and Warehouse Management
+                            systems.
+                            I'm passionate about clean code, database optimization, and building reliable RESTful APIs.
+                        </p>
+                        <p>
+                            When I'm not coding, you can find me exploring new technologies, learning about cloud
+                            services,
+                            or working on personal projects to sharpen my skills in Angular and React.
+                        </p>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="bio-actions">
+                        <a routerLink="/contact" class="btn btn-primary btn-lg">
+                            <span class="material-icons-outlined">mail</span>
+                            <span>Get In Touch</span>
+                        </a>
+                        <a [href]="portfolioData.personalInfo().resumeUrl" target="_blank"
+                            class="btn btn-outline btn-lg">
+                            <span class="material-icons-outlined">download</span>
+                            <span>Download CV</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Highlights Section -->
+    <div class="highlights-section">
+        <div class="container">
+            <div class="section-header" appScrollAnimate="animate-fade-in-up">
+                <h2 class="section-title">What I Bring</h2>
+                <p class="section-subtitle">Core principles that guide my work</p>
+            </div>
+
+            <div class="highlights-grid">
+                @for (item of highlights; track item.label; let i = $index) {
+                <div class="highlight-card" appScrollAnimate="animate-fade-in-up" [animationDelay]="i * 100">
+                    <div class="highlight-icon">
+                        <span class="material-icons-outlined">{{ item.icon }}</span>
+                    </div>
+                    <h3>{{ item.label }}</h3>
+                    <p>{{ item.description }}</p>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Preview -->
+    <div class="skills-section">
+        <div class="container">
+            <div class="section-header" appScrollAnimate="animate-fade-in-up">
+                <h2 class="section-title">Technical Skills</h2>
+                <p class="section-subtitle">Technologies I work with</p>
+            </div>
+
+            <div class="skills-categories">
+                <!-- Frontend -->
+                <div class="skill-category" appScrollAnimate="animate-fade-in-up">
+                    <h4 class="category-title">
+                        <span class="material-icons-outlined">web</span>
+                        Frontend
+                    </h4>
+                    <div class="skill-items">
+                        @for (skill of portfolioData.getSkillsByCategory('frontend').slice(0, 6); track skill.name) {
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">{{ skill.name }}</span>
+                                <span class="skill-level">{{ skill.level }}%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" [style.width.%]="skill.level"></div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="skill-category" appScrollAnimate="animate-fade-in-up" [animationDelay]="100">
+                    <h4 class="category-title">
+                        <span class="material-icons-outlined">dns</span>
+                        Backend
+                    </h4>
+                    <div class="skill-items">
+                        @for (skill of portfolioData.getSkillsByCategory('backend').slice(0, 6); track skill.name) {
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">{{ skill.name }}</span>
+                                <span class="skill-level">{{ skill.level }}%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" [style.width.%]="skill.level"></div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-all" appScrollAnimate="animate-fade-in-up">
+                <a routerLink="/skills" class="btn btn-outline">
+                    <span>View All Skills</span>
+                    <span class="material-icons-outlined">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Education & Certifications -->
+    <div class="education-section">
+        <div class="container">
+            <div class="edu-grid">
+                <!-- Education -->
+                <div class="edu-column" appScrollAnimate="animate-fade-in-left">
+                    <h3 class="column-title">
+                        <span class="material-icons-outlined">school</span>
+                        Education
+                    </h3>
+                    @for (edu of education; track edu.degree) {
+                    <div class="edu-card">
+                        <div class="edu-year">{{ edu.year }}</div>
+                        <h4>{{ edu.degree }} — {{ edu.field }}</h4>
+                        <p class="edu-school">{{ edu.school }}, {{ edu.location }}</p>
+                        <p class="edu-gpa">{{ edu.gpa }}</p>
+                        <p class="edu-desc">{{ edu.description }}</p>
+                    </div>
+                    }
+                </div>
+
+                <!-- Certifications -->
+                <div class="edu-column" appScrollAnimate="animate-fade-in-right">
+                    <h3 class="column-title">
+                        <span class="material-icons-outlined">verified</span>
+                        Certifications
+                    </h3>
+                    @for (cert of certifications; track cert.name) {
+                    <div class="cert-card">
+                        <div class="cert-icon">
+                            <span class="material-icons-outlined">workspace_premium</span>
+                        </div>
+                        <div class="cert-content">
+                            <h4>{{ cert.name }}</h4>
+                            <p>{{ cert.issuer }} • {{ cert.year }}</p>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

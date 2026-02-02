@@ -1,0 +1,126 @@
+<section class="skills-page">
+    <!-- Hero Section -->
+    <div class="skills-hero">
+        <div class="container">
+            <div class="hero-content animate-fade-in">
+                <h1>Skills & Expertise</h1>
+                <p class="subtitle">Technologies and tools I use to bring ideas to life</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Content -->
+    <div class="skills-content">
+        <div class="container">
+            @for (category of categories; track category.key; let catIndex = $index) {
+            <div class="skill-category" appScrollAnimate="animate-fade-in-up" [animationDelay]="catIndex * 100">
+
+                <!-- Category Header -->
+                <div class="category-header">
+                    <div class="category-icon">
+                        <span class="material-icons-outlined">{{ category.icon }}</span>
+                    </div>
+                    <div class="category-info">
+                        <h2>{{ category.label }}</h2>
+                        <p>{{ getSkillsByCategory(category.key).length }} technologies</p>
+                    </div>
+                </div>
+
+                <!-- Skills Grid -->
+                <div class="skills-grid">
+                    @for (skill of getSkillsByCategory(category.key); track skill.name; let i = $index) {
+                    <div class="skill-card tooltip" [attr.data-tooltip]="skill.level + '% proficiency'">
+                        <div class="skill-icon" [class]="getSkillColor(skill.level)">
+                            <span class="icon-text">{{ getSkillIcon(skill.name) }}</span>
+                        </div>
+                        <div class="skill-info">
+                            <h4>{{ skill.name }}</h4>
+                            <div class="skill-bar-wrapper">
+                                <div class="skill-bar">
+                                    <div class="skill-progress" [style.width.%]="skill.level"
+                                        [class]="getSkillColor(skill.level)">
+                                    </div>
+                                </div>
+                                <span class="skill-percent">{{ skill.level }}%</span>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="skills-legend">
+        <div class="container">
+            <div class="legend-content" appScrollAnimate="animate-fade-in-up">
+                <h3>Proficiency Levels</h3>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="legend-dot expert"></span>
+                        <span>Expert (90%+)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot advanced"></span>
+                        <span>Advanced (75-89%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot intermediate"></span>
+                        <span>Intermediate (60-74%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot beginner"></span>
+                        <span>Learning (&lt;60%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tools & Software -->
+    <div class="tools-section">
+        <div class="container">
+            <div class="section-header" appScrollAnimate="animate-fade-in-up">
+                <h2 class="section-title">Development Environment</h2>
+                <p class="section-subtitle">Tools and software I use daily</p>
+            </div>
+
+            <div class="tools-grid" appScrollAnimate="animate-fade-in-up">
+                <div class="tool-item">
+                    <span class="material-icons-outlined">terminal</span>
+                    <span>VS Code</span>
+                </div>
+                <div class="tool-item">
+                    <span class="material-icons-outlined">account_tree</span>
+                    <span>GitHub</span>
+                </div>
+                <div class="tool-item">
+                    <span class="material-icons-outlined">bug_report</span>
+                    <span>Postman</span>
+                </div>
+                <div class="tool-item">
+                    <span class="material-icons-outlined">palette</span>
+                    <span>Figma</span>
+                </div>
+                <div class="tool-item">
+                    <span class="material-icons-outlined">view_in_ar</span>
+                    <span>Docker</span>
+                </div>
+                <div class="tool-item">
+                    <span class="material-icons-outlined">cloud</span>
+                    <span>AWS</span>
+                </div>
+                <div class="tool-item">
+                    <span class="material-icons-outlined">integration_instructions</span>
+                    <span>Jenkins</span>
+                </div>
+                <div class="tool-item">
+                    <span class="material-icons-outlined">analytics</span>
+                    <span>Jira</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
