@@ -169,7 +169,7 @@
     cursor: pointer;
     padding: 0;
     position: relative;
-    z-index: var(--z-modal); // Ensure it's above overlay
+    z-index: 2000; // Very high to ensure clickability
 
     @media (min-width: 1024px) {
         display: none;
@@ -215,10 +215,10 @@
     right: -100%;
     width: 280px;
     height: 100vh;
-    background: var(--bg-surface);
+    background: var(--bg-primary); // Solid primary background for readability
     border-left: 1px solid var(--border-primary);
     padding: var(--space-8) var(--space-3) var(--space-3); // Adjusted top padding
-    z-index: var(--z-modal);
+    z-index: 1999; // Below toggle but above everything else
     transition: right var(--transition-base);
     overflow-y: auto;
     box-shadow: var(--shadow-xl); // Add shadow for depth
@@ -253,23 +253,20 @@
     // Remove initial opacity/transform from base class to prevent blur
     // We will apply them only when menu needs animation
 
-    @media (prefers-reduced-motion: no-preference) {
-        opacity: 0;
-        transform: translateX(10px); // Reduced travel distance
+    // Simpler animation to avoid blur issues
+    opacity: 0;
 
-        .nav-mobile.open & {
-            animation: slideIn 0.3s ease-out forwards;
-            // Force hardware acceleration to prevent blur
-            will-change: transform, opacity;
-            backface-visibility: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+    .nav-mobile.open & {
+        animation: simpleFadeIn 0.3s ease-out forwards;
     }
 
-    @keyframes slideIn {
+    @keyframes simpleFadeIn {
+        from {
+            opacity: 0;
+        }
+
         to {
             opacity: 1;
-            transform: translateX(0);
         }
     }
 

@@ -25,10 +25,10 @@ export class PortfolioDataService {
         title: 'Dot Net Developer',
         tagline: 'Your Next Dot Net Developer',
         email: 'mdshadalamcareer@gmail.com',
-        phone: '+917091771277',
+        phone: '+91709177xxxx',
         location: 'Guwahati, Assam, India',
-        avatar: 'img/profile.png',
-        resumeUrl: 'assets/resume.pdf',
+        avatar: 'assets/img/profile.png',
+        resumeUrl: 'assets/documents/resume.pdf',
         bio: `ASP.NET developer with about two years of experience delivering web applications using C#, ASP.NET MVC, and EF Core. I design and consume RESTful APIs, optimize SQL Server databases and queries, and implement maintainable backend features. I work in Agile teams, focusing on measurable improvements in performance and reliability while producing clean, testable code.`,
         socialLinks: [
             { name: 'GitHub', url: 'https://github.com/SHAD7352', icon: 'fab fa-github' },
