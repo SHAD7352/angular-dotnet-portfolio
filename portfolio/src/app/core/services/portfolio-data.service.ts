@@ -27,7 +27,7 @@ export class PortfolioDataService {
         email: 'mdshadalamcareer@gmail.com',
         phone: '+91709177xxxx',
         location: 'Guwahati, Assam, India',
-        avatar: 'assets/img/profile.png',
+        avatar: 'assets/images/profile.png',
         resumeUrl: 'assets/documents/resume.pdf',
         bio: `ASP.NET developer with about two years of experience delivering web applications using C#, ASP.NET MVC, and EF Core. I design and consume RESTful APIs, optimize SQL Server databases and queries, and implement maintainable backend features. I work in Agile teams, focusing on measurable improvements in performance and reliability while producing clean, testable code.`,
         socialLinks: [
@@ -114,7 +114,7 @@ export class PortfolioDataService {
                 'Collaborate with the product team to refine requirements, perform code reviews, and ensure high code quality and maintainability',
                 'Use Visual Studio, Bootstrap, and jQuery to deliver responsive UI components and streamline front-end interactions'
             ],
-            technologies: ['ASP.NET', 'C#', 'MS SQL Server', 'REST APIs', 'Bootstrap', 'jQuery', 'Visual Studio']
+            technologies: ['ASP.NET Core', 'Dapper', 'C#', 'MS SQL Server', 'REST APIs', 'Bootstrap', 'jQuery', 'Visual Studio', 'Alpine Js']
         },
         {
             id: '2',
@@ -164,33 +164,45 @@ export class PortfolioDataService {
     readonly projects = signal<Project[]>([
         {
             id: '1',
-            title: 'Vehicle Parking Management System',
-            description: 'Designed and maintained a Vehicle Parking Management System using ASP.NET Core/MVC to provide real-time parking slot monitoring, allocation, and history tracking. Implemented mobile-friendly RESTful APIs to enable seamless integration with mobile applications for parking slot booking and user management.',
-            image: 'assets/images/projects/parking.png',
-            techStack: ['ASP.NET Core', 'ASP.NET MVC', 'SQL Server', 'Entity Framework', 'REST APIs'],
+            title: 'School ERP System',
+            description: 'Comprehensive School ERP solution with student registration, fee management, attendance tracking, and academic management modules.',
+            image: 'assets/images/projectsimg/school-erp.png',
+            techStack: ['ASP.NET Core', 'ASP.NET MVC', 'ASP.NET Core Web API', 'Razor pages', 'Dapper', 'C#', 'MS SQL Server', 'Bootstrap', 'REST APIs', 'JQuery', 'Alpine.js', 'React.js'],
             category: 'fullstack',
-            liveUrl: '',
-            githubUrl: 'https://github.com/mdshadalamcareer/vehicle-parking',
+            liveUrl: 'https://dc.sfsguwahati.in/',
+            githubUrl: '',
             featured: true,
-            date: new Date('2025-05-01')
+            date: new Date('2025-08-01')
         },
         {
             id: '2',
-            title: 'Jewellery & Scheme Managing Application',
-            description: 'Developed RESTful APIs with ASP.NET Core to support mobile (customer) and web (admin) platforms for managing jewellery investment schemes. Enabled administrators to create, assign, and track schemes and agent collections, implementing server-side logic and EF-based data models for reliable tracking. Implemented financial calculation features to compute and display gold/diamond values based on customer investments and current market rates.',
-            image: 'assets/images/projects/jewellery.png',
-            techStack: ['ASP.NET Core', 'Entity Framework', 'REST APIs', 'SQL Server', 'C#'],
-            category: 'backend',
-            liveUrl: '',
-            githubUrl: 'https://github.com/mdshadalamcareer/jewellery-scheme',
-            featured: true,
-            date: new Date('2025-01-01')
+            title: 'Vehicle Parking Management System',
+            description: 'Designed and maintained a Vehicle Parking Management System using ASP.NET Core/MVC to provide real-time parking slot monitoring, allocation, and history tracking. Implemented mobile-friendly RESTful APIs to enable seamless integration with mobile applications for parking slot booking and user management.',
+            image: 'assets/images/projectsimg/VehicleParkingSystem.png',
+            techStack: ['ASP.NET Core', 'Web Forms', 'ASP.NET MVC', 'SQL Server', 'Entity Framework', 'REST APIs'],
+            category: 'fullstack',
+            liveUrl: 'https://smartpower.co.in/parking-fee-management-system',
+            githubUrl: 'https://github.com/SHAD7352',
+            featured: false,
+            date: new Date('2025-05-01')
         },
         {
             id: '3',
+            title: 'Jewellery & Scheme Managing Application',
+            description: 'Developed RESTful APIs with ASP.NET Core to support mobile (customer) and web (admin) platforms for managing jewellery investment schemes. Enabled administrators to create, assign, and track schemes and agent collections, implementing server-side logic and EF-based data models for reliable tracking. Implemented financial calculation features to compute and display gold/diamond values based on customer investments and current market rates.',
+            image: 'https://placehold.co/600x400/8e44ad/ffffff?text=Jewellery+Scheme',
+            techStack: ['ASP.NET Core', 'Entity Framework', 'REST APIs', 'SQL Server', 'C#'],
+            category: 'backend',
+            liveUrl: 'https://shyamsundarco.com/scheme',
+            githubUrl: '',
+            featured: false,
+            date: new Date('2025-01-01')
+        },
+        {
+            id: '4',
             title: 'Book Store Web Application',
             description: 'Built an ASP.NET Core 7 MVC book store web application featuring book category management, detailed book entries, and image upload support. Implemented user-friendly interfaces and used Entity Framework Core for data access, enabling reliable CRUD operations and optimized queries.',
-            image: 'assets/images/projects/bookstore.png',
+            image: 'https://placehold.co/600x400/d35400/ffffff?text=Book+Store',
             techStack: ['ASP.NET Core 7', 'MVC', 'Entity Framework Core', 'SQL Server', 'Bootstrap'],
             category: 'fullstack',
             liveUrl: '',
@@ -199,10 +211,10 @@ export class PortfolioDataService {
             date: new Date('2024-11-01')
         },
         {
-            id: '4',
+            id: '5',
             title: 'Inventory and Invoice Generator',
             description: 'Developed a web application to manage product inventory and generate invoices using ASP.NET with MVC patterns for maintainable server-side logic. Integrated invoice generation with customer and product selection and used Entity Framework for data persistence and transactional operations.',
-            image: 'assets/images/projects/inventory.png',
+            image: 'https://placehold.co/600x400/27ae60/ffffff?text=Inventory+System',
             techStack: ['ASP.NET', 'MVC', 'Entity Framework', 'SQL Server', 'Bootstrap', 'jQuery'],
             category: 'fullstack',
             liveUrl: '',
@@ -211,25 +223,16 @@ export class PortfolioDataService {
             date: new Date('2024-03-01')
         },
         {
-            id: '5',
+            id: '6',
             title: 'HRMS System',
             description: 'Enterprise Human Resource Management System with employee management, attendance tracking, leave management, and payroll processing features built at Vasp Technologies.',
-            image: 'assets/images/projects/hrms.png',
+            image: 'https://placehold.co/600x400/2980b9/ffffff?text=HRMS+System',
             techStack: ['ASP.NET', 'C#', 'MS SQL Server', 'Bootstrap', 'jQuery'],
             category: 'fullstack',
             featured: false,
             date: new Date('2025-07-01')
-        },
-        {
-            id: '6',
-            title: 'School ERP System',
-            description: 'Comprehensive School ERP solution with student registration, fee management, attendance tracking, and academic management modules.',
-            image: 'assets/images/projects/school-erp.png',
-            techStack: ['ASP.NET', 'C#', 'MS SQL Server', 'Bootstrap', 'REST APIs'],
-            category: 'fullstack',
-            featured: false,
-            date: new Date('2025-08-01')
         }
+
     ]);
 
     // ============================================
@@ -257,7 +260,7 @@ export class PortfolioDataService {
             slug: 'ef-core-best-practices',
             excerpt: 'Discover Entity Framework Core patterns and techniques that will help you write more efficient and maintainable data access code.',
             content: '# Entity Framework Core: Best Practices\n\nEntity Framework Core is a powerful ORM...',
-            coverImage: 'assets/images/blog/ef-core.png',
+            coverImage: 'assets/images/projectsimg/ef-core.png',
             author: 'Md Shad Alam',
             publishedAt: new Date('2025-01-05'),
             readingTime: 8,
@@ -270,7 +273,7 @@ export class PortfolioDataService {
             slug: 'sql-server-optimization',
             excerpt: 'Learn techniques to optimize your SQL Server queries and improve database performance for enterprise applications.',
             content: '# SQL Server Query Optimization Tips\n\nOptimizing database queries is crucial...',
-            coverImage: 'assets/images/blog/sql-optimization.png',
+            coverImage: 'assets/images/projectsimg/sql-optimization.png',
             author: 'Md Shad Alam',
             publishedAt: new Date('2024-12-20'),
             readingTime: 7,

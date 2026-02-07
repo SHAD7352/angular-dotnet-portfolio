@@ -36,7 +36,8 @@
                         <span class="material-icons-outlined">folder_open</span>
                         <span>View Projects</span>
                     </a>
-                    <a [href]="portfolioData.personalInfo().resumeUrl" target="_blank" class="btn btn-outline btn-lg">
+                    <a [href]="portfolioData.personalInfo().resumeUrl" download="resume.pdf" target="_blank"
+                        class="btn btn-outline btn-lg">
                         <span class="material-icons-outlined">download</span>
                         <span>Download Resume</span>
                     </a>
@@ -73,17 +74,17 @@
 
                     <!-- Floating Tech Icons -->
                     <div class="floating-icons">
-                        <div class="floating-icon icon-1" data-tooltip="Angular">
+                        <div class="floating-icon icon-1" data-tooltip=".NET Core">
+                            <span class="tech-icon">.NET</span>
+                        </div>
+                        <div class="floating-icon icon-2" data-tooltip="Angular">
                             <span class="tech-icon">A</span>
                         </div>
-                        <div class="floating-icon icon-2" data-tooltip="TypeScript">
+                        <div class="floating-icon icon-3" data-tooltip="MS SQL Server">
+                            <span class="tech-icon">SQL</span>
+                        </div>
+                        <div class="floating-icon icon-4" data-tooltip="TypeScript">
                             <span class="tech-icon">TS</span>
-                        </div>
-                        <div class="floating-icon icon-3" data-tooltip="Node.js">
-                            <span class="tech-icon">N</span>
-                        </div>
-                        <div class="floating-icon icon-4" data-tooltip="PostgreSQL">
-                            <span class="tech-icon">P</span>
                         </div>
                     </div>
                 </div>
@@ -114,9 +115,13 @@
             @for (project of portfolioData.getFeaturedProjects(); track project.id; let i = $index) {
             <article class="project-card" appScrollAnimate="animate-fade-in-up" [animationDelay]="i * 100">
                 <div class="project-image">
+                    @if (project.image) {
+                    <img [src]="project.image" [alt]="project.title" class="project-img" loading="lazy">
+                    } @else {
                     <div class="project-placeholder">
                         <span class="material-icons-outlined">image</span>
                     </div>
+                    }
                     <div class="project-overlay">
                         <div class="project-links">
                             @if (project.liveUrl) {

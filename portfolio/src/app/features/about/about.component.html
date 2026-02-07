@@ -61,6 +61,7 @@
                         <h3 class="title">{{ portfolioData.personalInfo().title }}</h3>
                     </div>
 
+
                     <div class="bio-text">
                         <p>{{ portfolioData.personalInfo().bio }}</p>
                         <p>
@@ -83,7 +84,7 @@
                             <span class="material-icons-outlined">mail</span>
                             <span>Get In Touch</span>
                         </a>
-                        <a [href]="portfolioData.personalInfo().resumeUrl" target="_blank"
+                        <a [href]="portfolioData.personalInfo().resumeUrl" download="resume.pdf" target="_blank"
                             class="btn btn-outline btn-lg">
                             <span class="material-icons-outlined">download</span>
                             <span>Download CV</span>

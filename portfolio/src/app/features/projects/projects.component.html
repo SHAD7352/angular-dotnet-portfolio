@@ -32,9 +32,13 @@
 
                     <!-- Project Image -->
                     <div class="project-image">
+                        @if (project.image) {
+                        <img [src]="project.image" [alt]="project.title" class="project-img" loading="lazy">
+                        } @else {
                         <div class="image-placeholder">
                             <span class="material-icons-outlined">{{ getCategoryIcon(project.category) }}</span>
                         </div>
+                        }
 
                         <!-- Overlay with Actions -->
                         <div class="project-overlay">

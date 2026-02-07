@@ -123,21 +123,21 @@
 
 html {
   height: 100%;
-  @include mat.theme((
-    color: (
-      primary: mat.$cyan-palette,
-      tertiary: mat.$green-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+  @include mat.theme((color: (primary: mat.$cyan-palette,
+        tertiary: mat.$green-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
 }
 
 // ============================================
 // BASE STYLES & RESET
 // ============================================
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -160,7 +160,12 @@ body {
 // TYPOGRAPHY
 // ============================================
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 700;
   line-height: 1.2;
@@ -338,6 +343,7 @@ a {
 
   &:hover:not(:disabled) {
     background: var(--accent-primary-hover);
+    color: #0F172A;
     box-shadow: var(--shadow-glow);
     transform: translateY(-2px);
   }
@@ -349,6 +355,7 @@ a {
 
   &:hover:not(:disabled) {
     background: var(--accent-secondary-hover);
+    color: #0F172A;
     box-shadow: var(--shadow-glow-green);
     transform: translateY(-2px);
   }
@@ -516,6 +523,7 @@ textarea.form-input {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -526,6 +534,7 @@ textarea.form-input {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -537,6 +546,7 @@ textarea.form-input {
     opacity: 0;
     transform: translateY(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -548,6 +558,7 @@ textarea.form-input {
     opacity: 0;
     transform: translateX(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -559,6 +570,7 @@ textarea.form-input {
     opacity: 0;
     transform: translateX(30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -570,6 +582,7 @@ textarea.form-input {
     opacity: 0;
     transform: scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -580,15 +593,19 @@ textarea.form-input {
   from {
     transform: translateY(100%);
   }
+
   to {
     transform: translateY(0);
   }
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
@@ -598,15 +615,19 @@ textarea.form-input {
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -616,6 +637,7 @@ textarea.form-input {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -662,12 +684,10 @@ textarea.form-input {
 // ============================================
 
 .skeleton {
-  background: linear-gradient(
-    90deg,
-    var(--bg-surface) 25%,
-    var(--bg-surface-hover) 50%,
-    var(--bg-surface) 75%
-  );
+  background: linear-gradient(90deg,
+      var(--bg-surface) 25%,
+      var(--bg-surface-hover) 50%,
+      var(--bg-surface) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: var(--radius-md);
@@ -718,24 +738,65 @@ textarea.form-input {
 // UTILITY CLASSES
 // ============================================
 
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
+.text-center {
+  text-align: center;
+}
 
-.text-primary { color: var(--text-primary); }
-.text-secondary { color: var(--text-secondary); }
-.text-muted { color: var(--text-muted); }
-.text-accent { color: var(--accent-primary); }
-.text-success { color: var(--accent-secondary); }
+.text-left {
+  text-align: left;
+}
 
-.font-heading { font-family: var(--font-heading); }
-.font-body { font-family: var(--font-body); }
+.text-right {
+  text-align: right;
+}
 
-.font-light { font-weight: 300; }
-.font-normal { font-weight: 400; }
-.font-medium { font-weight: 500; }
-.font-semibold { font-weight: 600; }
-.font-bold { font-weight: 700; }
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-accent {
+  color: var(--accent-primary);
+}
+
+.text-success {
+  color: var(--accent-secondary);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-light {
+  font-weight: 300;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
 
 .visually-hidden {
   position: absolute;
