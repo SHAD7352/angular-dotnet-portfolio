@@ -1,0 +1,10 @@
+CREATE TABLE [dbo].[Skills] (
+    [Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    [Name] NVARCHAR(MAX) NOT NULL,
+    [Icon] NVARCHAR(MAX) NOT NULL,
+    [Level] INT NOT NULL,
+    [Category] NVARCHAR(MAX) NOT NULL,
+    [SortOrder] INT NOT NULL,
+    [CreatedAt] DATETIME2 NOT NULL,
+    [UpdatedAt] DATETIME2 NULL
+);
