@@ -161,7 +161,7 @@ export class PortfolioDataService {
     // Note: Fetch from API: GET /api/projects
     // ============================================
 
-    readonly projects = signal<Project[]>([
+     readonly projects = signal<Project[]>([
         {
             id: '1',
             title: 'School ERP System',
@@ -231,8 +231,19 @@ export class PortfolioDataService {
             category: 'fullstack',
             featured: false,
             date: new Date('2025-07-01')
+        },
+        {
+            id: '7',
+            title: 'Financial Accountability System for Transparency (FAST)',
+            description: 'Developing a modern, cloud-based accounting and ERP system designed as a web-based alternative to traditional desktop software like Tally Prime. Features a high-speed, keyboard-driven "Gateway of Fast" interface for rapid data entry, coupled with a modern web architecture for remote accessibility and real-time syncing. [Status: Ongoing]',
+            image: 'https://placehold.co/600x400/34495e/ffffff?text=MSFS+FAST',
+            techStack: ['Blazor WebAssembly', 'ASP.NET Core 10', 'C#', 'SQL Server', 'Entity Framework Core', 'REST APIs', 'Bootstrap'],
+            category: 'fullstack',
+            liveUrl: 'https://fast.msfsguwahati.org/auth/login',
+            githubUrl: '',
+            featured: true,
+            date: new Date('2026-02-10') // Used today's date
         }
-
     ]);
 
     // ============================================
