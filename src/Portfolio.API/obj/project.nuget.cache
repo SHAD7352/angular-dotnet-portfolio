@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AWUBiVtRfJk=",
+  "dgSpecHash": "W9MQe0/SRWo=",
   "success": true,
-  "projectFilePath": "F:\\Projects\\Asp Net Core\\angular-dotnet-portfolio\\api\\src\\Portfolio.Api\\Portfolio.Api.csproj",
+  "projectFilePath": "F:\\Projects\\Asp Net Core\\angular-dotnet-portfolio\\src\\Portfolio.API\\Portfolio.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dillu\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\dillu\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
@@ -41,7 +41,7 @@
     "C:\\Users\\dillu\\.nuget\\packages\\microsoft.identitymodel.protocols\\8.0.1\\microsoft.identitymodel.protocols.8.0.1.nupkg.sha512",
     "C:\\Users\\dillu\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\8.0.1\\microsoft.identitymodel.protocols.openidconnect.8.0.1.nupkg.sha512",
     "C:\\Users\\dillu\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.14.0\\microsoft.identitymodel.tokens.8.14.0.nupkg.sha512",
-    "C:\\Users\\dillu\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512",
+    "C:\\Users\\dillu\\.nuget\\packages\\microsoft.openapi\\2.3.0\\microsoft.openapi.2.3.0.nupkg.sha512",
     "C:\\Users\\dillu\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\dillu\\.nuget\\packages\\microsoft.visualstudio.solutionpersistence\\1.0.52\\microsoft.visualstudio.solutionpersistence.1.0.52.nupkg.sha512",
     "C:\\Users\\dillu\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",

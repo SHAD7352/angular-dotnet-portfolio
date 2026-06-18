@@ -3,8 +3,10 @@ using System.Text;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.OpenApi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
 using Portfolio.Api.Common.Auth;
 using Portfolio.Api.Common.Behaviors;
 using Portfolio.Api.Common.Middleware;
@@ -73,8 +75,31 @@ builder.Services.AddCors(options =>
                         .AllowCredentials());
 });
 
-// 7. Add OpenAPI / Scalar
-builder.Services.AddOpenApi();
+// 7. Add OpenAPI / Scalar with JWT Authentication
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer((document, context, cancellationToken) =>
+    {
+        document.Info = new()
+        {
+            Title = "Portfolio API",
+            Version = "1.0.0",
+            Description = "API for Portfolio Management System with Blog, Projects, Skills, and Contact features",
+            Contact = new()
+            {
+                Name = "Portfolio Developer",
+                Url = new Uri("https://yourportfolio.com")
+            },
+            License = new()
+            {
+                Name = "MIT",
+                Url = new Uri("https://opensource.org/licenses/MIT")
+            }
+        };
+
+        return Task.CompletedTask;
+    });
+});
 
 var app = builder.Build();
 
@@ -92,7 +117,15 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference();
+
+    // Configure Scalar with enhanced UI
+    app.MapScalarApiReference(options =>
+    {
+        options
+            .WithTitle("Portfolio API Documentation")
+            .WithTheme(ScalarTheme.Purple)
+            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+    });
 }
 
 app.UseHttpsRedirection();

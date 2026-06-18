@@ -4,6 +4,8 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Portfolio.API.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,6 +24,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.OpenApi" Version="2.3.0" />
     <PackageReference Include="Scalar.AspNetCore" Version="2.14.14" />
   </ItemGroup>
 

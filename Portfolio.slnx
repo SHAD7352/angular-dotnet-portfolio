@@ -1,6 +1,6 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/Portfolio.API/Portfolio.API.csproj" />
-    <Project Path="src/Portfolio.DB/Portfolio.DB.sqlproj" Type="42ea0dbd-9cf1-443e-919e-be9c484e4577" />
+    <Project Path="src/Portfolio.DB/Portfolio.DB.sqlproj" Type="42ea0dbd-9cf1-443e-919e-be9c484e4577" Id="1bb7a2e8-a1b5-4f03-8b77-f9bde2153785" />
   </Folder>
 </Solution>
