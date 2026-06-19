@@ -76,7 +76,11 @@ builder.Services.AddAuthorization();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp",
-        policy => policy.WithOrigins("http://localhost:4200")
+        policy => policy.WithOrigins(
+                            "http://localhost:4200",
+                            "https://angular-dotnet-portfolio.onrender.com" // Backend domain
+                         )
+                        .SetIsOriginAllowed(origin => true) // Allow any origin for maximum compatibility with Vercel/Render frontend deployments
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());
@@ -110,12 +114,12 @@ builder.Services.AddOpenApi(options =>
 
 var app = builder.Build();
 
-// Migrate and Seed Database
+// Migrate Database (Removed Seeder to prevent deleting data on every restart)
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<PortfolioDbContext>();
     await context.Database.MigrateAsync();
-    await DataSeeder.SeedAsync(context);
+    // await DataSeeder.SeedAsync(context); // Commented out to prevent overwriting DB
 }
 
 // Configure the HTTP request pipeline.

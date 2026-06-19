@@ -133,7 +133,8 @@ export class PortfolioDataService {
     // ============================================
 
     private http = inject(HttpClient);
-    private apiBaseUrl = 'https://localhost:7024/api';
+    // Use the deployed Render backend URL
+    private apiBaseUrl = 'https://angular-dotnet-portfolio.onrender.com/api';
 
     constructor() {
         this.loadFromApi();
