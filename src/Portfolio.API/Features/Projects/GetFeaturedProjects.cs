@@ -24,7 +24,7 @@ public class GetFeaturedProjectsHandler : IRequestHandler<GetFeaturedProjectsQue
         var projects = await _context.Projects
             .Include(p => p.TechStacks)
             .Where(p => p.IsFeatured)
-            .OrderBy(p => p.SortOrder)
+            .OrderByDescending(p => p.ProjectDate)
             .ToListAsync(cancellationToken);
 
         return ApiResponse<List<Project>>.Ok(projects);

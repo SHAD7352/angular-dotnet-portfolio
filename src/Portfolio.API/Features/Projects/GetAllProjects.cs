@@ -23,7 +23,7 @@ public class GetAllProjectsHandler : IRequestHandler<GetAllProjectsQuery, ApiRes
     {
         var projects = await _context.Projects
             .Include(p => p.TechStacks)
-            .OrderBy(p => p.SortOrder)
+            .OrderByDescending(p => p.ProjectDate)
             .ToListAsync(cancellationToken);
 
         return ApiResponse<List<Project>>.Ok(projects);
