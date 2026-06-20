@@ -20,6 +20,7 @@ using Portfolio.Api.Features.Experience;
 using Portfolio.Api.Features.Blog;
 using Portfolio.Api.Features.Contact;
 using Portfolio.Api.Features.PersonalInfo;
+using Portfolio.Api.Features.Dashboard;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -99,7 +100,7 @@ builder.Services.AddOpenApi(options =>
             Contact = new()
             {
                 Name = "Portfolio Developer",
-                Url = new Uri("https://yourportfolio.com")
+                Url = new Uri("https://angular-dotnet-portfolio.vercel.app/")
             },
             License = new()
             {
@@ -156,5 +157,6 @@ app.MapExperienceEndpoints();
 app.MapBlogEndpoints();
 app.MapContactEndpoints();
 app.MapPersonalInfoEndpoints();
+app.MapDashboardEndpoints();
 
 app.Run();
