@@ -2,6 +2,7 @@ import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 export interface AuthResponse {
   success: boolean;
@@ -20,7 +21,7 @@ export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
   
-  private apiBaseUrl = 'https://angular-dotnet-portfolio.onrender.com/api';
+  private apiBaseUrl = environment.apiUrl;
   private readonly TOKEN_KEY = 'portfolio_admin_token';
   
   readonly isLoggedIn = signal<boolean>(this.hasToken());

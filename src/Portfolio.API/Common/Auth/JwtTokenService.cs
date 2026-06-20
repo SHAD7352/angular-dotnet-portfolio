@@ -30,8 +30,8 @@ public class JwtTokenService : IJwtTokenService
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim("FullName", user.FullName),
-            new Claim(ClaimTypes.Role, user.Role),
+            new Claim("FullName", user.FullName ?? ""),
+            new Claim(ClaimTypes.Role, user.Role ?? "Admin"),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 

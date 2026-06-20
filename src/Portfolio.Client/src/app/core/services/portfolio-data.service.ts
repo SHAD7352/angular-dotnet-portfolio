@@ -1,6 +1,7 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import {
     PersonalInfo,
     Project,
@@ -135,8 +136,7 @@ export class PortfolioDataService {
     // ============================================
 
     private http = inject(HttpClient);
-    // Use the deployed Render backend URL
-    private apiBaseUrl = 'https://angular-dotnet-portfolio.onrender.com/api';
+    private apiBaseUrl = environment.apiUrl;
 
     constructor() {
         this.loadFromApi();

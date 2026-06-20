@@ -48,7 +48,17 @@ public class LoginHandler : IRequestHandler<LoginRequest, ApiResponse<LoginRespo
         var user = await _context.Users
             .FirstOrDefaultAsync(u => u.Email == request.Email, cancellationToken);
 
-        if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+        bool isPasswordValid = false;
+        try
+        {
+            isPasswordValid = BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash);
+        }
+        catch (BCrypt.Net.SaltParseException)
+        {
+            isPasswordValid = false; // Gracefully handle invalid hash formats in DB instead of 500 error
+        }
+
+        if (user == null || !isPasswordValid)
         {
             throw new AppException("Invalid credentials.");
         }
@@ -57,11 +67,12 @@ public class LoginHandler : IRequestHandler<LoginRequest, ApiResponse<LoginRespo
         var refreshToken = _jwtService.GenerateRefreshToken();
         var expiresAt = DateTime.UtcNow.AddMinutes(_jwtSettings.AccessTokenExpirationMinutes);
 
-        user.RefreshTokens.Add(new Data.Entities.RefreshToken
+        _context.RefreshTokens.Add(new Data.Entities.RefreshToken
         {
             Token = refreshToken,
             ExpiresAt = DateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenExpirationDays),
-            UserId = user.Id
+            UserId = user.Id,
+            User = user
         });
 
         await _context.SaveChangesAsync(cancellationToken);
