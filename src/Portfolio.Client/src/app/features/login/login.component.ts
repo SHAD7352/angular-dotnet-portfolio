@@ -15,21 +15,22 @@ export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
+  email = signal('');
   password = signal('');
   error = signal('');
   isLoading = signal(false);
 
   onSubmit(event: Event) {
     event.preventDefault();
-    if (!this.password()) {
-      this.error.set('Password is required');
+    if (!this.email() || !this.password()) {
+      this.error.set('Email and password are required');
       return;
     }
 
     this.isLoading.set(true);
     this.error.set('');
 
-    this.authService.login(this.password()).subscribe({
+    this.authService.login(this.email(), this.password()).subscribe({
       next: () => {
         this.isLoading.set(false);
         this.router.navigate(['/admin']);

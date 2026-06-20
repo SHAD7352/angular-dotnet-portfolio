@@ -4,7 +4,13 @@ import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 export interface AuthResponse {
-  token: string;
+  success: boolean;
+  message: string;
+  data: {
+    accessToken: string;
+    refreshToken: string;
+    expiresAt: string;
+  };
 }
 
 @Injectable({
@@ -23,11 +29,11 @@ export class AuthService {
     return !!localStorage.getItem(this.TOKEN_KEY);
   }
 
-  login(password: string) {
-    return this.http.post<AuthResponse>(`${this.apiBaseUrl}/auth/login`, { password }).pipe(
+  login(email: string, password: string) {
+    return this.http.post<AuthResponse>(`${this.apiBaseUrl}/auth/login`, { email, password }).pipe(
       tap(response => {
-        if (response && response.token) {
-          localStorage.setItem(this.TOKEN_KEY, response.token);
+        if (response?.data?.accessToken) {
+          localStorage.setItem(this.TOKEN_KEY, response.data.accessToken);
           this.isLoggedIn.set(true);
         }
       })

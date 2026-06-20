@@ -20,6 +20,7 @@
                     @for (item of portfolioData.navigationItems(); track item.route) {
                     <a [routerLink]="item.route" class="footer-link">{{ item.label }}</a>
                     }
+                    <a routerLink="/login" class="footer-link admin-link">Admin Login</a>
                 </nav>
             </div>
 

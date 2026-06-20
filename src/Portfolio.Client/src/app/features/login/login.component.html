@@ -9,10 +9,29 @@
         <span class="material-icons-outlined">lock</span>
       </div>
       <h1>Admin Login</h1>
-      <p>Enter your password to access the dashboard</p>
+      <p>Enter your email and password to access the dashboard</p>
     </div>
 
     <form class="login-form" (submit)="onSubmit($event)">
+      <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <div class="input-wrapper">
+          <span class="material-icons-outlined">email</span>
+          <input 
+            type="email" 
+            id="email" 
+            name="email"
+            class="form-input" 
+            placeholder="Enter email..."
+            [ngModel]="email()"
+            (ngModelChange)="email.set($event)"
+            [disabled]="isLoading()"
+            autocomplete="email"
+            required
+          >
+        </div>
+      </div>
+
       <div class="form-group">
         <label class="form-label" for="password">Password</label>
         <div class="input-wrapper">
