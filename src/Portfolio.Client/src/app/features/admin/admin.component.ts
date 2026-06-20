@@ -1,5 +1,5 @@
 import { Component, inject, signal, OnInit, AfterViewInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PortfolioDataService, ThemeService, AuthService } from '../../core/services';
 import { ContactMessage, DashboardStats } from '../../core/models';
@@ -14,7 +14,7 @@ interface MenuItem {
 @Component({
     selector: 'app-admin',
     standalone: true,
-    imports: [CommonModule, RouterModule, DecimalPipe],
+    imports: [CommonModule, RouterModule],
     templateUrl: './admin.component.html',
     styleUrls: ['./admin.component.scss']
 })
