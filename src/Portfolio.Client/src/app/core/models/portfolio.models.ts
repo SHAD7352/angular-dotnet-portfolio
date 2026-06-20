@@ -59,7 +59,15 @@ export interface ContactMessage {
   subject: string;
   message: string;
   createdAt?: Date;
-  read?: boolean;
+  isRead?: boolean;
+}
+
+export interface DashboardStats {
+  projectsCount: number;
+  blogPostsCount: number;
+  unreadMessagesCount: number;
+  totalMessagesCount: number;
+  pageViewsCount: number;
 }
 
 export interface SocialLink {

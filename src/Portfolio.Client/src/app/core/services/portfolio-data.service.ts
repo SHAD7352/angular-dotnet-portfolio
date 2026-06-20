@@ -1,5 +1,6 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import {
     PersonalInfo,
     Project,
@@ -7,7 +8,8 @@ import {
     Experience,
     BlogPost,
     NavigationItem,
-    SocialLink
+    SocialLink,
+    DashboardStats
 } from '../models';
 
 @Injectable({
@@ -205,8 +207,17 @@ export class PortfolioDataService {
         });
     }
 
-    updateProject(project: Project): void {
-        this.http.put<Project>(`${this.apiBaseUrl}/projects/${project.id}`, project).subscribe({
+    createProject(project: Project): void {
+        this.http.post<Project>(`${this.apiBaseUrl}/projects`, project).subscribe({
+            next: (created) => {
+                this.projects.update(projects => [...projects, created]);
+            },
+            error: (err) => console.error('Failed to create project:', err)
+        });
+    }
+
+    updateProject(id: string, project: Project): void {
+        this.http.put<Project>(`${this.apiBaseUrl}/projects/${id}`, project).subscribe({
             next: (updated) => {
                 this.projects.update(projects => 
                     projects.map(p => p.id === updated.id ? updated : p)
@@ -214,5 +225,27 @@ export class PortfolioDataService {
             },
             error: (err) => console.error('Failed to update project:', err)
         });
+    }
+
+    deleteProject(id: string): void {
+        this.http.delete(`${this.apiBaseUrl}/projects/${id}`).subscribe({
+            next: () => {
+                this.projects.update(projects => projects.filter(p => p.id !== id));
+            },
+            error: (err) => console.error('Failed to delete project:', err)
+        });
+    }
+
+    getDashboardStats(): Observable<any> {
+        return this.http.get<any>(`${this.apiBaseUrl}/dashboard/stats`);
+    }
+
+    getContactMessages(limit?: number): Observable<any> {
+        const url = limit ? `${this.apiBaseUrl}/dashboard/messages?limit=${limit}` : `${this.apiBaseUrl}/dashboard/messages`;
+        return this.http.get<any>(url);
+    }
+
+    markMessageAsRead(id: string): Observable<any> {
+        return this.http.put<any>(`${this.apiBaseUrl}/dashboard/messages/${id}/read`, {});
     }
 }

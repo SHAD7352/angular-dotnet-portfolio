@@ -1,0 +1,179 @@
+.login-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #050505;
+  background-image: radial-gradient(circle at top right, rgba(56, 189, 248, 0.15), transparent 40%),
+                    radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.15), transparent 40%);
+  position: relative;
+  overflow: hidden;
+}
+
+.shader-container {
+  display: none; // we'll rely on the CSS gradient instead of canvas for simplicity
+}
+
+.login-card {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 420px;
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+
+  .brand-header {
+    text-align: center;
+    margin-bottom: var(--space-5);
+
+    .brand-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary));
+      color: #fff;
+      margin-bottom: var(--space-3);
+
+      span {
+        font-size: 32px;
+      }
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 var(--space-1);
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+
+    .form-group {
+      margin: 0;
+
+      .form-label {
+        display: block;
+        color: var(--text-secondary);
+        font-weight: 500;
+        margin-bottom: var(--space-1);
+        font-size: 0.9rem;
+      }
+
+      .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .material-icons-outlined {
+          position: absolute;
+          left: 16px;
+          color: var(--text-muted);
+          font-size: 20px;
+        }
+
+        .form-input {
+          width: 100%;
+          padding: 14px 16px 14px 44px;
+          background: rgba(15, 23, 42, 0.6);
+          border: 1px solid var(--border-secondary);
+          border-radius: var(--radius-md);
+          color: var(--text-primary);
+          font-size: 1rem;
+          transition: all var(--transition-fast);
+
+          &::placeholder {
+            color: var(--text-disabled);
+          }
+
+          &:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+            background: rgba(15, 23, 42, 0.8);
+          }
+        }
+      }
+    }
+
+    .error-message {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent-error);
+      background: rgba(239, 68, 68, 0.1);
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      
+      span {
+        font-size: 18px;
+      }
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent-primary);
+      color: #0F172A;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition-fast);
+
+      &:hover:not(:disabled) {
+        background: var(--accent-primary-hover);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-glow);
+      }
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .back-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: var(--space-4);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color var(--transition-fast);
+
+    &:hover {
+      color: var(--text-primary);
+    }
+    
+    span {
+      font-size: 18px;
+    }
+  }
+}

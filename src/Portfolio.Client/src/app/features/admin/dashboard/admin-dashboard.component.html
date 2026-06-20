@@ -1,0 +1,177 @@
+<!-- Stats Grid -->
+<section class="stats-section">
+    <div class="stats-grid">
+        <!-- Projects Stats -->
+        <div class="stat-card">
+            <div class="stat-card-header">
+                <div>
+                    <span class="stat-label">Projects</span>
+                    <div class="stat-value">{{ dashboardStats()?.projectsCount ?? 0 }}</div>
+                </div>
+                <div class="stat-icon-wrapper">
+                    <span class="material-icons-outlined">folder</span>
+                </div>
+            </div>
+            <div class="stat-card-footer">
+                <span class="trend-icon positive">
+                    <span class="material-icons-outlined">trending_up</span>
+                </span>
+                <span class="trend-text positive">+2</span>
+                <span class="trend-desc">since last week</span>
+            </div>
+        </div>
+
+        <!-- Blog Posts Stats -->
+        <div class="stat-card">
+            <div class="stat-card-header">
+                <div>
+                    <span class="stat-label">Blog Posts</span>
+                    <div class="stat-value">{{ dashboardStats()?.blogPostsCount ?? 0 }}</div>
+                </div>
+                <div class="stat-icon-wrapper">
+                    <span class="material-icons-outlined">article</span>
+                </div>
+            </div>
+            <div class="stat-card-footer">
+                <span class="trend-icon positive">
+                    <span class="material-icons-outlined">trending_up</span>
+                </span>
+                <span class="trend-text positive">+1</span>
+                <span class="trend-desc">since last week</span>
+            </div>
+        </div>
+
+        <!-- Page Views Stats -->
+        <div class="stat-card">
+            <div class="stat-card-header">
+                <div>
+                    <span class="stat-label">Page Views</span>
+                    <div class="stat-value">{{ (dashboardStats()?.pageViewsCount ?? 2432) | number }}</div>
+                </div>
+                <div class="stat-icon-wrapper">
+                    <span class="material-icons-outlined">visibility</span>
+                </div>
+            </div>
+            <div class="stat-card-footer">
+                <span class="trend-icon positive">
+                    <span class="material-icons-outlined">trending_up</span>
+                </span>
+                <span class="trend-text positive">+15%</span>
+                <span class="trend-desc">growth</span>
+            </div>
+        </div>
+
+        <!-- Messages Stats -->
+        <div class="stat-card">
+            <div class="stat-card-header">
+                <div>
+                    <span class="stat-label">Unread Messages</span>
+                    <div class="stat-value">{{ dashboardStats()?.unreadMessagesCount ?? 0 }}</div>
+                </div>
+                <div class="stat-icon-wrapper">
+                    <span class="material-icons-outlined">mail</span>
+                </div>
+            </div>
+            <div class="stat-card-footer">
+                <span class="trend-icon" [class.positive]="(dashboardStats()?.unreadMessagesCount ?? 0) === 0" [class.negative]="(dashboardStats()?.unreadMessagesCount ?? 0) > 0">
+                    <span class="material-icons-outlined">
+                        {{ (dashboardStats()?.unreadMessagesCount ?? 0) > 0 ? 'mail_lock' : 'check_circle' }}
+                    </span>
+                </span>
+                <span class="trend-text" [class.positive]="(dashboardStats()?.unreadMessagesCount ?? 0) === 0" [class.negative]="(dashboardStats()?.unreadMessagesCount ?? 0) > 0">
+                    {{ (dashboardStats()?.unreadMessagesCount ?? 0) > 0 ? 'Pending' : 'All Read' }}
+                </span>
+                <span class="trend-desc">messages</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Actions -->
+<section class="quick-actions">
+    <h2>Quick Actions</h2>
+    <div class="actions-grid">
+        <button class="action-card" routerLink="/admin/projects">
+            <span class="material-icons-outlined action-icon">add_circle</span>
+            <span class="action-title">New Project</span>
+        </button>
+        <button class="action-card" routerLink="/admin/blogs">
+            <span class="material-icons-outlined action-icon">edit_note</span>
+            <span class="action-title">Write Post</span>
+        </button>
+        <button class="action-card">
+            <span class="material-icons-outlined action-icon">analytics</span>
+            <span class="action-title">Analytics</span>
+        </button>
+        <button class="action-card">
+            <span class="material-icons-outlined action-icon">cloud_upload</span>
+            <span class="action-title">Upload File</span>
+        </button>
+    </div>
+</section>
+
+<!-- Recent Items -->
+<div class="dashboard-grid">
+    <!-- Recent Projects -->
+    <section class="dashboard-card">
+        <div class="card-header">
+            <h3>Recent Projects</h3>
+            <a routerLink="/admin/projects" class="view-all">View All</a>
+        </div>
+        <div class="card-content">
+            @for (project of portfolioData.projects().slice(0, 3); track project.id) {
+            <div class="list-item">
+                <div class="item-icon">
+                    <span class="material-icons-outlined">folder</span>
+                </div>
+                <div class="item-content">
+                    <div class="item-title">{{ project.title }}</div>
+                    <div class="item-meta">
+                        <span class="tech-chip" *ngFor="let tech of project.techStack.slice(0, 3)">{{ tech }}</span>
+                        <span class="category-chip">{{ project.category }}</span>
+                    </div>
+                </div>
+                <button class="item-action">
+                    <span class="material-icons-outlined">more_vert</span>
+                </button>
+            </div>
+            }
+        </div>
+    </section>
+
+    <!-- Recent Messages -->
+    <section class="dashboard-card messages-card">
+        <div class="card-header">
+            <h3>Recent Messages</h3>
+            <span class="unread-pill" *ngIf="unreadMessagesCount() > 0">
+                {{ unreadMessagesCount() }} UNREAD
+            </span>
+            <a routerLink="/admin/messages" class="view-all" *ngIf="unreadMessagesCount() === 0">View All</a>
+        </div>
+        <div class="card-content">
+            @for (message of recentMessages().slice(0, 3); track message.id) {
+            <div class="list-item clickable" [class.unread]="!message.isRead" (click)="markAsRead(message)">
+                <div class="item-icon" [class.unread]="!message.isRead">
+                    <span class="material-icons-outlined">
+                        {{ message.isRead ? 'drafts' : 'mail' }}
+                    </span>
+                </div>
+                <div class="item-content">
+                    <div class="item-title">{{ message.name }}</div>
+                    <div class="item-message truncate">{{ message.message }}</div>
+                    <div class="item-meta">
+                        {{ message.email }} &bull; {{ message.createdAt | date:'shortTime' }}
+                    </div>
+                </div>
+                <span class="unread-dot" *ngIf="!message.isRead"></span>
+            </div>
+            }
+            @if (recentMessages().length === 0) {
+                <div class="empty-state">
+                    <span class="material-icons-outlined">inbox</span>
+                    <p>No contact messages</p>
+                </div>
+            }
+        </div>
+    </section>
+</div>

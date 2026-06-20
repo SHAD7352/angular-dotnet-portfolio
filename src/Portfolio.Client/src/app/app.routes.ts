@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -37,9 +38,46 @@ export const routes: Routes = [
         title: 'Contact | Portfolio'
     },
     {
+        path: 'login',
+        loadComponent: () => import('./features/login/login.component').then(m => m.LoginComponent),
+        title: 'Login | Portfolio'
+    },
+    {
         path: 'admin',
         loadComponent: () => import('./features/admin/admin.component').then(m => m.AdminComponent),
-        title: 'Admin Dashboard | Portfolio'
+        canActivate: [authGuard],
+        children: [
+            {
+                path: '',
+                loadComponent: () => import('./features/admin/dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent),
+                title: 'Admin Dashboard | Portfolio'
+            },
+            {
+                path: 'projects',
+                loadComponent: () => import('./features/admin/projects/admin-projects.component').then(m => m.AdminProjectsComponent),
+                title: 'Manage Projects | Portfolio'
+            },
+            {
+                path: 'blogs',
+                loadComponent: () => import('./features/admin/blogs/admin-blogs.component').then(m => m.AdminBlogsComponent),
+                title: 'Manage Blogs | Portfolio'
+            },
+            {
+                path: 'messages',
+                loadComponent: () => import('./features/admin/messages/admin-messages.component').then(m => m.AdminMessagesComponent),
+                title: 'Messages | Portfolio'
+            },
+            {
+                path: 'profile',
+                loadComponent: () => import('./features/admin/profile/admin-profile.component').then(m => m.AdminProfileComponent),
+                title: 'Profile | Portfolio'
+            },
+            {
+                path: 'settings',
+                loadComponent: () => import('./features/admin/settings/admin-settings.component').then(m => m.AdminSettingsComponent),
+                title: 'Settings | Portfolio'
+            }
+        ]
     },
     {
         path: '**',

@@ -1,0 +1,52 @@
+<div class="login-layout">
+  <div class="shader-container">
+    <canvas class="shader-canvas"></canvas>
+  </div>
+
+  <div class="login-card">
+    <div class="brand-header">
+      <div class="brand-icon">
+        <span class="material-icons-outlined">lock</span>
+      </div>
+      <h1>Admin Login</h1>
+      <p>Enter your password to access the dashboard</p>
+    </div>
+
+    <form class="login-form" (submit)="onSubmit($event)">
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <div class="input-wrapper">
+          <span class="material-icons-outlined">key</span>
+          <input 
+            type="password" 
+            id="password" 
+            name="password"
+            class="form-input" 
+            placeholder="Enter password..."
+            [ngModel]="password()"
+            (ngModelChange)="password.set($event)"
+            [disabled]="isLoading()"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="error()">
+        <span class="material-icons-outlined">error_outline</span>
+        {{ error() }}
+      </div>
+
+      <button type="submit" class="btn-login" [disabled]="isLoading()">
+        <span *ngIf="!isLoading()">Login</span>
+        <span *ngIf="isLoading()">Authenticating...</span>
+        <span class="material-icons-outlined" *ngIf="!isLoading()">arrow_forward</span>
+      </button>
+    </form>
+
+    <a routerLink="/" class="back-link">
+      <span class="material-icons-outlined">arrow_back</span>
+      Return to Portfolio
+    </a>
+  </div>
+</div>

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,15 @@ import { FooterComponent } from './layout/footer/footer.component';
   imports: [RouterOutlet, HeaderComponent, FooterComponent],
   template: `
     <div class="app-layout">
-      <app-header />
+      @if (showHeaderFooter()) {
+        <app-header />
+      }
       <main class="main-content">
         <router-outlet />
       </main>
-      <app-footer />
+      @if (showHeaderFooter()) {
+        <app-footer />
+      }
     </div>
   `,
   styles: [`
@@ -30,4 +35,15 @@ import { FooterComponent } from './layout/footer/footer.component';
 })
 export class AppComponent {
   title = 'Portfolio';
+  router = inject(Router);
+  showHeaderFooter = signal(true);
+
+  constructor() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      const url = event.urlAfterRedirects.split('?')[0];
+      this.showHeaderFooter.set(!(url === '/login' || url.startsWith('/admin')));
+    });
+  }
 }
