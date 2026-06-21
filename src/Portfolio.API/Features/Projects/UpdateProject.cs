@@ -51,16 +51,34 @@ public class UpdateProjectHandler : IRequestHandler<UpdateProjectCommand, ApiRes
         project.ProjectDate = request.ProjectDate;
         project.SortOrder = request.SortOrder;
 
-        // Clear existing tech stacks and add new ones to handle removals, additions, and reordering
+        // Remove existing
         _context.Set<ProjectTechStack>().RemoveRange(project.TechStacks);
-        
-        project.TechStacks = request.TechStacks.Select((tech, index) => new ProjectTechStack
-        {
-            Technology = tech,
-            SortOrder = index
-        }).ToList();
+        project.TechStacks.Clear();
 
-        await _context.SaveChangesAsync(cancellationToken);
+        // Add new
+        var newTechStacks = request.TechStacks
+            .Select((tech, index) => new ProjectTechStack
+            {
+                Technology = tech,
+                SortOrder = index,
+                ProjectId = project.Id
+            })
+            .ToList();
+
+        foreach (var ts in newTechStacks)
+        {
+            _context.Entry(ts).State = EntityState.Added;
+            project.TechStacks.Add(ts);
+        }
+        
+        try
+        {
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
 
         return ApiResponse<Project>.Ok(project, "Project updated successfully.");
     }

@@ -150,8 +150,8 @@ export class PortfolioDataService {
             field: 'Computer Science',
             institution: 'B.P. Mandal College of Engineering',
             location: 'Madhepura, India',
-            startDate: new Date('2019-09-01'),
-            endDate: new Date('2023-09-30'),
+            startprojectDate: new Date('2019-09-01'),
+            endprojectDate: new Date('2023-09-30'),
             gpa: '7.33 / 10.00',
             current: false
         }
@@ -168,82 +168,82 @@ export class PortfolioDataService {
             title: 'School ERP System',
             description: 'Comprehensive School ERP solution with student registration, fee management, attendance tracking, and academic management modules.',
             image: 'assets/images/projectsimg/school-erp.png',
-            techStack: ['ASP.NET Core', 'ASP.NET MVC', 'ASP.NET Core Web API', 'Razor pages', 'Dapper', 'C#', 'MS SQL Server', 'Bootstrap', 'REST APIs', 'JQuery', 'Alpine.js', 'React.js'],
+            techStacks: ['ASP.NET Core', 'ASP.NET MVC', 'ASP.NET Core Web API', 'Razor pages', 'Dapper', 'C#', 'MS SQL Server', 'Bootstrap', 'REST APIs', 'JQuery', 'Alpine.js', 'React.js'],
             category: 'fullstack',
             liveUrl: 'https://dc.sfsguwahati.in/',
             githubUrl: '',
-            featured: true,
-            date: new Date('2025-08-01')
+            isFeatured: true,
+            projectDate: new Date('2025-08-01')
         },
         {
             id: '2',
             title: 'Vehicle Parking Management System',
             description: 'Designed and maintained a Vehicle Parking Management System using ASP.NET Core/MVC to provide real-time parking slot monitoring, allocation, and history tracking. Implemented mobile-friendly RESTful APIs to enable seamless integration with mobile applications for parking slot booking and user management.',
             image: 'assets/images/projectsimg/VehicleParkingSystem.png',
-            techStack: ['ASP.NET Core', 'Web Forms', 'ASP.NET MVC', 'SQL Server', 'Entity Framework', 'REST APIs'],
+            techStacks: ['ASP.NET Core', 'Web Forms', 'ASP.NET MVC', 'SQL Server', 'Entity Framework', 'REST APIs'],
             category: 'fullstack',
             liveUrl: 'https://smartpower.co.in/parking-fee-management-system',
             githubUrl: 'https://github.com/SHAD7352',
-            featured: false,
-            date: new Date('2025-05-01')
+            isFeatured: false,
+            projectDate: new Date('2025-05-01')
         },
         {
             id: '3',
             title: 'Jewellery & Scheme Managing Application',
             description: 'Developed RESTful APIs with ASP.NET Core to support mobile (customer) and web (admin) platforms for managing jewellery investment schemes. Enabled administrators to create, assign, and track schemes and agent collections, implementing server-side logic and EF-based data models for reliable tracking. Implemented financial calculation features to compute and display gold/diamond values based on customer investments and current market rates.',
             image: 'https://placehold.co/600x400/8e44ad/ffffff?text=Jewellery+Scheme',
-            techStack: ['ASP.NET Core', 'Entity Framework', 'REST APIs', 'SQL Server', 'C#'],
+            techStacks: ['ASP.NET Core', 'Entity Framework', 'REST APIs', 'SQL Server', 'C#'],
             category: 'backend',
             liveUrl: 'https://shyamsundarco.com/scheme',
             githubUrl: '',
-            featured: false,
-            date: new Date('2025-01-01')
+            isFeatured: false,
+            projectDate: new Date('2025-01-01')
         },
         {
             id: '4',
             title: 'Book Store Web Application',
             description: 'Built an ASP.NET Core 7 MVC book store web application featuring book category management, detailed book entries, and image upload support. Implemented user-friendly interfaces and used Entity Framework Core for data access, enabling reliable CRUD operations and optimized queries.',
             image: 'https://placehold.co/600x400/d35400/ffffff?text=Book+Store',
-            techStack: ['ASP.NET Core 7', 'MVC', 'Entity Framework Core', 'SQL Server', 'Bootstrap'],
+            techStacks: ['ASP.NET Core 7', 'MVC', 'Entity Framework Core', 'SQL Server', 'Bootstrap'],
             category: 'fullstack',
             liveUrl: '',
             githubUrl: 'https://github.com/mdshadalamcareer/bookstore',
-            featured: true,
-            date: new Date('2024-11-01')
+            isFeatured: true,
+            projectDate: new Date('2024-11-01')
         },
         {
             id: '5',
             title: 'Inventory and Invoice Generator',
             description: 'Developed a web application to manage product inventory and generate invoices using ASP.NET with MVC patterns for maintainable server-side logic. Integrated invoice generation with customer and product selection and used Entity Framework for data persistence and transactional operations.',
             image: 'https://placehold.co/600x400/27ae60/ffffff?text=Inventory+System',
-            techStack: ['ASP.NET', 'MVC', 'Entity Framework', 'SQL Server', 'Bootstrap', 'jQuery'],
+            techStacks: ['ASP.NET', 'MVC', 'Entity Framework', 'SQL Server', 'Bootstrap', 'jQuery'],
             category: 'fullstack',
             liveUrl: '',
             githubUrl: 'https://github.com/mdshadalamcareer/inventory-invoice',
-            featured: false,
-            date: new Date('2024-03-01')
+            isFeatured: false,
+            projectDate: new Date('2024-03-01')
         },
         {
             id: '6',
             title: 'HRMS System',
             description: 'Enterprise Human Resource Management System with employee management, attendance tracking, leave management, and payroll processing features built at Vasp Technologies.',
             image: 'https://placehold.co/600x400/2980b9/ffffff?text=HRMS+System',
-            techStack: ['ASP.NET', 'C#', 'MS SQL Server', 'Bootstrap', 'jQuery'],
+            techStacks: ['ASP.NET', 'C#', 'MS SQL Server', 'Bootstrap', 'jQuery'],
             category: 'fullstack',
-            featured: false,
-            date: new Date('2025-07-01')
+            isFeatured: false,
+            projectDate: new Date('2025-07-01')
         },
         {
             id: '7',
             title: 'Financial Accountability System for Transparency (FAST)',
             description: 'Developing a modern, cloud-based accounting and ERP system designed as a web-based alternative to traditional desktop software like Tally Prime. Features a high-speed, keyboard-driven "Gateway of Fast" interface for rapid data entry, coupled with a modern web architecture for remote accessibility and real-time syncing. [Status: Ongoing]',
             image: 'https://placehold.co/600x400/34495e/ffffff?text=MSFS+FAST',
-            techStack: ['Blazor WebAssembly', 'ASP.NET Core 10', 'C#', 'SQL Server', 'Entity Framework Core', 'REST APIs', 'Bootstrap'],
+            techStacks: ['Blazor WebAssembly', 'ASP.NET Core 10', 'C#', 'SQL Server', 'Entity Framework Core', 'REST APIs', 'Bootstrap'],
             category: 'fullstack',
             liveUrl: 'https://fast.msfsguwahati.org/auth/login',
             githubUrl: '',
-            featured: true,
-            date: new Date('2026-02-10') // Used today's date
+            isFeatured: true,
+            projectDate: new Date('2026-02-10') // Used today's date
         }
     ]);
 
@@ -317,7 +317,7 @@ export class PortfolioDataService {
         //     id: '1',
         //     name: 'Microsoft Certified: Azure Developer Associate',
         //     issuer: 'Microsoft',
-        //     date: new Date('2024-06-01'),
+        //     projectDate: new Date('2024-06-01'),
         //     credentialUrl: 'https://...'
         // }
     ]);
@@ -331,7 +331,7 @@ export class PortfolioDataService {
     }
 
     getFeaturedProjects(): Project[] {
-        return this.projects().filter(project => project.featured);
+        return this.projects().filter(project => project.isFeatured);
     }
 
     getProjectsByCategory(category: string): Project[] {
@@ -402,9 +402,9 @@ export class PortfolioDataService {
                 if (res?.data && res.data.length > 0) {
                     const mapped = res.data.map((d: any) => ({
                         ...d,
-                        featured: d.isFeatured,
-                        date: d.projectDate,
-                        techStack: d.techStacks?.map((t: any) => t.technology) || []
+                        isFeatured: d.isFeatured,
+                        projectDate: d.projectDate,
+                        techStacks: d.techStacks?.map((t: any) => t.technology) || []
                     }));
                     this.projects.set(mapped);
                 }

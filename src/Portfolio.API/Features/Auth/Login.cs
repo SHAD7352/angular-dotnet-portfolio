@@ -48,6 +48,11 @@ public class LoginHandler : IRequestHandler<LoginRequest, ApiResponse<LoginRespo
         var user = await _context.Users
             .FirstOrDefaultAsync(u => u.Email == request.Email, cancellationToken);
 
+        if (user == null)
+        {
+            throw new AppException("Invalid credentials.");
+        }
+
         bool isPasswordValid = false;
         try
         {
@@ -58,7 +63,7 @@ public class LoginHandler : IRequestHandler<LoginRequest, ApiResponse<LoginRespo
             isPasswordValid = false; // Gracefully handle invalid hash formats in DB instead of 500 error
         }
 
-        if (user == null || !isPasswordValid)
+        if (!isPasswordValid)
         {
             throw new AppException("Invalid credentials.");
         }

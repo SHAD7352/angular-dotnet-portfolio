@@ -27,14 +27,18 @@ export class AuthService {
   readonly isLoggedIn = signal<boolean>(this.hasToken());
 
   private hasToken(): boolean {
-    return !!localStorage.getItem(this.TOKEN_KEY);
+    return !!(localStorage.getItem(this.TOKEN_KEY) || sessionStorage.getItem(this.TOKEN_KEY));
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string, rememberMe: boolean = false) {
     return this.http.post<AuthResponse>(`${this.apiBaseUrl}/auth/login`, { email, password }).pipe(
       tap(response => {
         if (response?.data?.accessToken) {
-          localStorage.setItem(this.TOKEN_KEY, response.data.accessToken);
+          if (rememberMe) {
+            localStorage.setItem(this.TOKEN_KEY, response.data.accessToken);
+          } else {
+            sessionStorage.setItem(this.TOKEN_KEY, response.data.accessToken);
+          }
           this.isLoggedIn.set(true);
         }
       })
@@ -43,11 +47,12 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
+    sessionStorage.removeItem(this.TOKEN_KEY);
     this.isLoggedIn.set(false);
     this.router.navigate(['/login']);
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.TOKEN_KEY);
+    return localStorage.getItem(this.TOKEN_KEY) || sessionStorage.getItem(this.TOKEN_KEY);
   }
 }

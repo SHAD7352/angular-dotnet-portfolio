@@ -14,5 +14,11 @@ public static class PersonalInfoEndpoints
             var result = await mediator.Send(new GetPersonalInfoQuery());
             return Results.Ok(result);
         }).AllowAnonymous();
+
+        group.MapPut("/", async (UpdatePersonalInfoCommand command, IMediator mediator) =>
+        {
+            var result = await mediator.Send(command);
+            return Results.Ok(result);
+        }).RequireAuthorization();
     }
 }

@@ -112,7 +112,24 @@
         }
       }
     }
+    .remember-me-group {
+      .checkbox-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        cursor: pointer;
+        user-select: none;
 
+        input {
+          accent-color: var(--accent-primary);
+          width: 16px;
+          height: 16px;
+          cursor: pointer;
+        }
+      }
+    }
     .error-message {
       display: flex;
       align-items: center;

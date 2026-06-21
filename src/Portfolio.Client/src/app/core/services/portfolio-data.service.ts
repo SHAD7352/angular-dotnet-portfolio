@@ -110,7 +110,7 @@ export class PortfolioDataService {
     }
 
     getFeaturedProjects(): Project[] {
-        return this.projects().filter(project => project.featured);
+        return this.projects().filter(project => project.isFeatured);
     }
 
     getProjectsByCategory(category: string): Project[] {
@@ -181,10 +181,10 @@ export class PortfolioDataService {
                 if (res?.data && res.data.length > 0) {
                     const mapped = res.data.map((d: any) => ({
                         ...d,
-                        featured: d.isFeatured,
-                        date: d.projectDate,
-                        techStack: d.techStacks?.map((t: any) => t.technology) || []
-                    }));
+                        isFeatured: d.isFeatured,
+                        projectDate: d.projectDate,
+                        techStacks: d.techStacks?.map((t: any) => t.technology) || []
+                    })).sort((a: Project, b: Project) => (b.sortOrder || 0) - (a.sortOrder || 0));
                     this.projects.set(mapped);
                 }
             },
@@ -207,33 +207,37 @@ export class PortfolioDataService {
         });
     }
 
-    createProject(project: Project): void {
-        this.http.post<Project>(`${this.apiBaseUrl}/projects`, project).subscribe({
-            next: (created) => {
-                this.projects.update(projects => [...projects, created]);
-            },
-            error: (err) => console.error('Failed to create project:', err)
-        });
+    createProject(project: Project): Observable<any> {
+        return this.http.post<any>(`${this.apiBaseUrl}/projects`, project).pipe(
+            tap((created) => {
+                const newProject = {
+                    ...created.data,
+                    techStacks: created.data.techStacks?.map((t: any) => t.technology) || []
+                };
+                this.projects.update(projects => [...projects, newProject]);
+            })
+        );
     }
 
-    updateProject(id: string, project: Project): void {
-        this.http.put<Project>(`${this.apiBaseUrl}/projects/${id}`, project).subscribe({
-            next: (updated) => {
+    updateProject(id: string, project: Project): Observable<any> {
+        return this.http.put<any>(`${this.apiBaseUrl}/projects/${id}`, project).pipe(
+            tap((updated) => {
                 this.projects.update(projects => 
-                    projects.map(p => p.id === updated.id ? updated : p)
+                    projects.map(p => p.id === updated.data.id ? {
+                        ...updated.data,
+                        techStacks: updated.data.techStacks?.map((t: any) => t.technology) || []
+                    } : p)
                 );
-            },
-            error: (err) => console.error('Failed to update project:', err)
-        });
+            })
+        );
     }
 
-    deleteProject(id: string): void {
-        this.http.delete(`${this.apiBaseUrl}/projects/${id}`).subscribe({
-            next: () => {
+    deleteProject(id: string): Observable<any> {
+        return this.http.delete<any>(`${this.apiBaseUrl}/projects/${id}`).pipe(
+            tap(() => {
                 this.projects.update(projects => projects.filter(p => p.id !== id));
-            },
-            error: (err) => console.error('Failed to delete project:', err)
-        });
+            })
+        );
     }
 
     getDashboardStats(): Observable<any> {
@@ -247,5 +251,53 @@ export class PortfolioDataService {
 
     markMessageAsRead(id: string): Observable<any> {
         return this.http.put<any>(`${this.apiBaseUrl}/dashboard/messages/${id}/read`, {});
+    }
+
+    updatePersonalInfo(data: PersonalInfo): Observable<any> {
+        return this.http.put<any>(`${this.apiBaseUrl}/personal-info`, data).pipe(
+            tap(res => {
+                if (res?.data) {
+                    this.personalInfo.set(res.data);
+                }
+            })
+        );
+    }
+
+    createBlogPost(post: BlogPost): Observable<any> {
+        return this.http.post<any>(`${this.apiBaseUrl}/blog/posts`, post).pipe(
+            tap((created) => {
+                const newPost = {
+                    ...created.data,
+                    tags: created.data.tags?.map((t: any) => t.tag) || []
+                };
+                this.blogPosts.update(posts => [...posts, newPost]);
+            })
+        );
+    }
+
+    updateBlogPost(id: string, post: BlogPost): Observable<any> {
+        return this.http.put<any>(`${this.apiBaseUrl}/blog/posts/${id}`, post).pipe(
+            tap((updated) => {
+                const updatedPost = {
+                    ...updated.data,
+                    tags: updated.data.tags?.map((t: any) => t.tag) || []
+                };
+                this.blogPosts.update(posts => 
+                    posts.map(p => p.id === updatedPost.id ? updatedPost : p)
+                );
+            })
+        );
+    }
+
+    deleteBlogPost(id: string): Observable<any> {
+        return this.http.delete<any>(`${this.apiBaseUrl}/blog/posts/${id}`).pipe(
+            tap(() => {
+                this.blogPosts.update(posts => posts.filter(p => p.id !== id));
+            })
+        );
+    }
+
+    submitContactMessage(message: any): Observable<any> {
+        return this.http.post<any>(`${this.apiBaseUrl}/contact`, message);
     }
 }

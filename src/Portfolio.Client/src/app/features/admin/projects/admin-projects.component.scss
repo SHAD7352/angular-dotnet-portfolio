@@ -406,3 +406,28 @@
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     margin-top: 12px;
 }
+
+.success-alert, .error-alert {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+
+    span {
+        font-size: 1.5rem;
+    }
+}
+
+.success-alert {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.error-alert {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}

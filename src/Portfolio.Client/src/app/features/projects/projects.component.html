@@ -61,7 +61,7 @@
                         </div>
 
                         <!-- Featured Badge -->
-                        @if (project.featured) {
+                        @if (project.isFeatured) {
                         <div class="featured-badge">
                             <span class="material-icons-outlined">star</span>
                             Featured
@@ -82,7 +82,7 @@
 
                         <!-- Tech Stack -->
                         <div class="project-tech">
-                            @for (tech of project.techStack; track tech) {
+                            @for (tech of project.techStacks; track tech) {
                             <span class="tech-tag">{{ tech }}</span>
                             }
                         </div>

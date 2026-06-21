@@ -51,6 +51,20 @@
         </div>
       </div>
 
+      <div class="form-group remember-me-group">
+        <label class="checkbox-container">
+          <input 
+            type="checkbox" 
+            [ngModel]="rememberMe()"
+            (ngModelChange)="rememberMe.set($event)"
+            name="rememberMe"
+            [disabled]="isLoading()"
+          >
+          <span class="checkmark"></span>
+          Remember me
+        </label>
+      </div>
+
       <div class="error-message" *ngIf="error()">
         <span class="material-icons-outlined">error_outline</span>
         {{ error() }}

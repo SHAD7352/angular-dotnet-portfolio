@@ -38,17 +38,23 @@ export class ContactComponent {
         this.isSubmitting.set(true);
         this.submitError.set(null);
 
-        // Simulate API call
-        setTimeout(() => {
-            this.isSubmitting.set(false);
-            this.isSubmitted.set(true);
-            this.contactForm.reset();
+        this.portfolioData.submitContactMessage(this.contactForm.value).subscribe({
+            next: (res) => {
+                this.isSubmitting.set(false);
+                this.isSubmitted.set(true);
+                this.contactForm.reset();
 
-            // Reset success message after 5 seconds
-            setTimeout(() => {
-                this.isSubmitted.set(false);
-            }, 5000);
-        }, 1500);
+                // Reset success message after 5 seconds
+                setTimeout(() => {
+                    this.isSubmitted.set(false);
+                }, 5000);
+            },
+            error: (err) => {
+                this.isSubmitting.set(false);
+                this.submitError.set(err.error?.message || 'Failed to submit contact message. Please try again.');
+                console.error('Contact submit error:', err);
+            }
+        });
     }
 
     getFieldError(fieldName: string): string | null {

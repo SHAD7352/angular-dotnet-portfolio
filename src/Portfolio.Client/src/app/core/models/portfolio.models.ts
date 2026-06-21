@@ -7,12 +7,13 @@ export interface Project {
   title: string;
   description: string;
   image: string;
-  techStack: string[];
+  techStacks: string[];
   category: 'frontend' | 'backend' | 'fullstack' | 'mobile' | 'other';
   liveUrl?: string;
   githubUrl?: string;
-  featured: boolean;
-  date: Date;
+  isFeatured: boolean;
+  projectDate: Date;
+  sortOrder?: number;
 }
 
 export interface Skill {

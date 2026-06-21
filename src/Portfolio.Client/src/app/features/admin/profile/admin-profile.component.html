@@ -1,0 +1,110 @@
+<div class="profile-container">
+  <div class="projects-header">
+    <h2>Manage Profile</h2>
+    <button class="btn-primary" (click)="saveProfile()" [disabled]="profileForm.invalid || isSaving()">
+      <span class="material-icons-outlined">save</span>
+      {{ isSaving() ? 'Saving...' : 'Save Profile' }}
+    </button>
+  </div>
+
+  <div class="success-alert" *ngIf="saveSuccess()">
+    <span class="material-icons-outlined">check_circle</span>
+    Profile updated successfully!
+  </div>
+
+  <div class="error-alert" *ngIf="saveError()">
+    <span class="material-icons-outlined">error</span>
+    {{ saveError() }}
+  </div>
+
+  <form [formGroup]="profileForm" class="profile-form glass-card">
+    <div class="form-section">
+      <h3>Basic Information</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input type="text" formControlName="name" class="form-control" placeholder="Your Name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Title</label>
+          <input type="text" formControlName="title" class="form-control" placeholder="Your Title">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Tagline</label>
+        <input type="text" formControlName="tagline" class="form-control" placeholder="A brief catchphrase">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Bio</label>
+        <textarea formControlName="bio" class="form-control" rows="4" placeholder="Tell us about yourself..."></textarea>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Contact Information</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" formControlName="email" class="form-control" placeholder="Email Address">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input type="text" formControlName="phone" class="form-control" placeholder="Phone Number">
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Location</label>
+          <input type="text" formControlName="location" class="form-control" placeholder="City, Country">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Media & Links</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Avatar URL</label>
+          <input type="text" formControlName="avatar" class="form-control" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Resume URL</label>
+          <input type="text" formControlName="resumeUrl" class="form-control" placeholder="https://...">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="section-header">
+        <h3>Social Links</h3>
+        <button type="button" class="btn-text" (click)="addSocialLink()">
+          <span class="material-icons-outlined">add</span> Add Link
+        </button>
+      </div>
+
+      <div formArrayName="socialLinks" class="social-links-list">
+        <div class="social-link-item" *ngFor="let linkCtrl of socialLinks.controls; let i=index" [formGroupName]="i">
+          <div class="form-group">
+            <label class="form-label">Platform Name</label>
+            <input type="text" formControlName="name" class="form-control" placeholder="e.g. GitHub">
+          </div>
+          <div class="form-group">
+            <label class="form-label">URL</label>
+            <input type="text" formControlName="url" class="form-control" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Icon</label>
+            <input type="text" formControlName="icon" class="form-control" placeholder="e.g. github">
+          </div>
+          <button type="button" class="btn-icon danger delete-btn" (click)="removeSocialLink(i)" title="Remove Link">
+            <span class="material-icons-outlined">delete</span>
+          </button>
+        </div>
+        <p *ngIf="socialLinks.length === 0" class="text-muted">No social links added yet.</p>
+      </div>
+    </div>
+  </form>
+</div>

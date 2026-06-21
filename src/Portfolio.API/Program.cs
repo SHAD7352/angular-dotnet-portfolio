@@ -43,10 +43,11 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
-// Configure JSON options to ignore circular references
+// Configure JSON options to ignore circular references and match property names case-insensitively
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.SerializerOptions.PropertyNameCaseInsensitive = true;
 });
 
 // 5. Add Authentication & Authorization
@@ -119,7 +120,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<PortfolioDbContext>();
-    await context.Database.MigrateAsync();
+    //await context.Database.MigrateAsync();
     // await DataSeeder.SeedAsync(context); // Commented out to prevent overwriting DB
 }
 

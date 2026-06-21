@@ -18,6 +18,8 @@ export class AdminProjectsComponent implements OnInit {
     isModalOpen = signal(false);
     editingProjectId = signal<string | null>(null);
     projectForm!: FormGroup;
+    isSaving = signal(false);
+    saveError = signal('');
 
     categories = ['frontend', 'backend', 'fullstack', 'mobile', 'other'];
 
@@ -29,31 +31,33 @@ export class AdminProjectsComponent implements OnInit {
         this.projectForm = this.fb.group({
             title: ['', Validators.required],
             description: ['', Validators.required],
-            image: ['', Validators.required],
+            image: [''],
             category: ['fullstack', Validators.required],
             liveUrl: [''],
             githubUrl: [''],
-            featured: [false],
-            date: [new Date().toISOString().substring(0, 10), Validators.required],
-            techStack: this.fb.array([this.fb.control('', Validators.required)])
+            isFeatured: [false],
+            projectDate: [new Date().toISOString().substring(0, 10), Validators.required],
+            sortOrder: [0, Validators.required],
+            techStacks: this.fb.array([this.fb.control('', Validators.required)])
         });
     }
 
-    get techStack(): FormArray {
-        return this.projectForm.get('techStack') as FormArray;
+    get techStacks(): FormArray {
+        return this.projectForm.get('techStacks') as FormArray;
     }
 
     addTech(): void {
-        this.techStack.push(this.fb.control('', Validators.required));
+        this.techStacks.push(this.fb.control('', Validators.required));
     }
 
     removeTech(index: number): void {
-        if (this.techStack.length > 1) {
-            this.techStack.removeAt(index);
+        if (this.techStacks.length > 1) {
+            this.techStacks.removeAt(index);
         }
     }
 
     openModal(project?: Project): void {
+        this.saveError.set('');
         if (project) {
             this.editingProjectId.set(project.id);
             this.projectForm.patchValue({
@@ -63,13 +67,14 @@ export class AdminProjectsComponent implements OnInit {
                 category: project.category,
                 liveUrl: project.liveUrl,
                 githubUrl: project.githubUrl,
-                featured: project.featured,
-                date: new Date(project.date).toISOString().substring(0, 10)
+                isFeatured: project.isFeatured,
+                sortOrder: project.sortOrder,
+                projectDate: new Date(project.projectDate).toISOString().substring(0, 10)
             });
-            this.techStack.clear();
-            if (project.techStack && project.techStack.length > 0) {
-                project.techStack.forEach(tech => {
-                    this.techStack.push(this.fb.control(tech, Validators.required));
+            this.techStacks.clear();
+            if (project.techStacks && project.techStacks.length > 0) {
+                project.techStacks.forEach(tech => {
+                    this.techStacks.push(this.fb.control(tech, Validators.required));
                 });
             } else {
                 this.addTech();
@@ -85,6 +90,7 @@ export class AdminProjectsComponent implements OnInit {
         this.isModalOpen.set(false);
         this.editingProjectId.set(null);
         this.projectForm.reset();
+        this.saveError.set('');
     }
 
     saveProject(): void {
@@ -93,25 +99,42 @@ export class AdminProjectsComponent implements OnInit {
             return;
         }
 
+        this.isSaving.set(true);
+        this.saveError.set('');
+
         const formValue = this.projectForm.value;
         const projectData: Project = {
-            id: this.editingProjectId() || crypto.randomUUID(), // Assume random UUID for new if no API generates it
+            id: this.editingProjectId() || crypto.randomUUID(),
             ...formValue,
-            date: new Date(formValue.date)
+            projectDate: new Date(formValue.projectDate)
         };
 
-        if (this.editingProjectId()) {
-            this.portfolioData.updateProject(this.editingProjectId()!, projectData);
-        } else {
-            this.portfolioData.createProject(projectData);
-        }
+        const saveObs = this.editingProjectId()
+            ? this.portfolioData.updateProject(this.editingProjectId()!, projectData)
+            : this.portfolioData.createProject(projectData);
 
-        this.closeModal();
+        saveObs.subscribe({
+            next: () => {
+                this.isSaving.set(false);
+                this.closeModal();
+            },
+            error: (err) => {
+                this.isSaving.set(false);
+                this.saveError.set(err.error?.message || 'Failed to save project. Please try again.');
+                console.error('Failed to save project:', err);
+            }
+        });
     }
 
     deleteProject(id: string): void {
         if (confirm('Are you sure you want to delete this project?')) {
-            this.portfolioData.deleteProject(id);
+            this.portfolioData.deleteProject(id).subscribe({
+                next: () => {},
+                error: (err) => {
+                    alert(err.error?.message || 'Failed to delete project.');
+                    console.error('Failed to delete project:', err);
+                }
+            });
         }
     }
 }

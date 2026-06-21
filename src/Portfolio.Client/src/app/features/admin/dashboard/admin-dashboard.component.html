@@ -127,8 +127,8 @@
                 <div class="item-content">
                     <div class="item-title">{{ project.title }}</div>
                     <div class="item-meta">
-                        <span class="tech-chip" *ngFor="let tech of project.techStack.slice(0, 3)">{{ tech }}</span>
-                        <span class="category-chip">{{ project.category }}</span>
+                        <span class="tech-chip" *ngFor="let tech of project.techStacks.slice(0, 3)">{{ tech }}</span>
+                        <span class="tech-chip more" *ngIf="project.techStacks.length > 3">+{{ project.techStacks.length - 3 }}</span>
                     </div>
                 </div>
                 <button class="item-action">

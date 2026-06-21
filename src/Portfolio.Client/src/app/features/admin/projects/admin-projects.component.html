@@ -13,7 +13,7 @@
                 <div class="project-image">
                     <img [src]="project.image" [alt]="project.title" onerror="this.src='assets/placeholder-image.png'">
                     <span class="category-badge">{{ project.category }}</span>
-                    @if (project.featured) {
+                    @if (project.isFeatured) {
                         <span class="featured-badge"><span class="material-icons-outlined">star</span></span>
                     }
                 </div>
@@ -21,7 +21,7 @@
                     <h3 class="project-title">{{ project.title }}</h3>
                     <p class="project-desc">{{ project.description }}</p>
                     <div class="tech-stack">
-                        @for (tech of project.techStack; track tech) {
+                        @for (tech of project.techStacks; track tech) {
                             <span class="tech-chip">{{ tech }}</span>
                         }
                     </div>
@@ -55,6 +55,11 @@
             </div>
             
             <div class="modal-body">
+                <div class="error-alert" *ngIf="saveError()">
+                    <span class="material-icons-outlined">error</span>
+                    {{ saveError() }}
+                </div>
+
                 <form [formGroup]="projectForm" (ngSubmit)="saveProject()" class="project-form">
                     <div class="form-row">
                         <div class="form-group">
@@ -82,8 +87,8 @@
                             <input type="text" formControlName="image" class="form-control" placeholder="https://...">
                         </div>
                         <div class="form-group">
-                            <label>Date</label>
-                            <input type="date" formControlName="date" class="form-control">
+                            <label>Project Date</label>
+                            <input type="date" formControlName="projectDate" class="form-control">
                         </div>
                     </div>
 
@@ -98,11 +103,17 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" formControlName="featured">
-                            Featured Project
-                        </label>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Sort Order</label>
+                            <input type="number" formControlName="sortOrder" class="form-control" placeholder="e.g. 7">
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label" style="margin-top: 32px;">
+                                <input type="checkbox" formControlName="isFeatured">
+                                Featured Project
+                            </label>
+                        </div>
                     </div>
 
                     <div class="form-group tech-stack-group">
@@ -112,11 +123,11 @@
                                 <span class="material-icons-outlined">add</span> Add Tech
                             </button>
                         </div>
-                        <div formArrayName="techStack" class="tech-list">
-                            @for (techCtrl of techStack.controls; track $index) {
+                        <div formArrayName="techStacks" class="tech-list">
+                            @for (techCtrl of techStacks.controls; track $index) {
                                 <div class="tech-item">
                                     <input type="text" [formControlName]="$index" class="form-control" placeholder="e.g. Angular">
-                                    <button type="button" class="btn-icon delete-btn" (click)="removeTech($index)" [disabled]="techStack.length === 1">
+                                    <button type="button" class="btn-icon delete-btn" (click)="removeTech($index)" [disabled]="techStacks.length === 1">
                                         <span class="material-icons-outlined">close</span>
                                     </button>
                                 </div>
@@ -126,8 +137,8 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn-secondary" (click)="closeModal()">Cancel</button>
-                        <button type="submit" class="btn-primary" [disabled]="projectForm.invalid">
-                            {{ editingProjectId() ? 'Save Changes' : 'Create Project' }}
+                        <button type="submit" class="btn-primary" [disabled]="projectForm.invalid || isSaving()">
+                            {{ isSaving() ? 'Saving...' : (editingProjectId() ? 'Save Changes' : 'Create Project') }}
                         </button>
                     </div>
                 </form>
