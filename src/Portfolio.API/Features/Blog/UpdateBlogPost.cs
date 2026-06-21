@@ -73,6 +73,9 @@ public class UpdateBlogPostHandler : IRequestHandler<UpdateBlogPostCommand, ApiR
 
         await _context.SaveChangesAsync(cancellationToken);
 
+        // Clean navigation property for the serialized response
+        post.Tags = newTags;
+
         return ApiResponse<BlogPost>.Ok(post);
     }
 }

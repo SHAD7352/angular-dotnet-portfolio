@@ -80,6 +80,9 @@ public class UpdateProjectHandler : IRequestHandler<UpdateProjectCommand, ApiRes
             throw;
         }
 
+        // Clean navigation property for the serialized response
+        project.TechStacks = newTechStacks;
+
         return ApiResponse<Project>.Ok(project, "Project updated successfully.");
     }
 }

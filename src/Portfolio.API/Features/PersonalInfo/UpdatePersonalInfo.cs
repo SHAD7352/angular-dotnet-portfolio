@@ -61,14 +61,25 @@ public class UpdatePersonalInfoHandler : IRequestHandler<UpdatePersonalInfoComma
         info.ResumeUrl = request.ResumeUrl;
         info.Bio = request.Bio;
 
+        // Remove existing social links
         _context.Set<SocialLink>().RemoveRange(info.SocialLinks);
-        info.SocialLinks = request.SocialLinks.Select(s => new SocialLink
+        info.SocialLinks.Clear();
+
+        // Create new social links
+        var newSocialLinks = request.SocialLinks.Select(s => new SocialLink
         {
             Name = s.Name,
             Url = s.Url,
             Icon = s.Icon,
-            SortOrder = s.SortOrder
+            SortOrder = s.SortOrder,
+            PersonalInfoId = info.Id
         }).ToList();
+
+        foreach (var link in newSocialLinks)
+        {
+            _context.Entry(link).State = EntityState.Added;
+            info.SocialLinks.Add(link);
+        }
 
         await _context.SaveChangesAsync(cancellationToken);
 
